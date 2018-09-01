@@ -66,11 +66,13 @@ class Unit extends Entity {
       (s > d)? s - speed : s;
   }
  
- void render() {
-   fill(255, 0, 0);
-   ellipse(x, y, 20, 20);
+  void render() {
+    renderImage();
+  
+    fill(255, 0, 0);
+    ellipse(x, y, 20, 20);
    
-   fill(255);
-   text(state, x, y);
- }
+    fill(255);
+    text(state, x, y);
+  }
 }
