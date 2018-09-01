@@ -37,32 +37,26 @@ void setup() {
   assets = new HashMap<String,PImage>();
   world = new World("start");
 
-  zoomLevel = 2;
+  zoomLevel = 1;
   widthForZoomLevel = width ;
   heightForZoomLevel = height;
 } 
 
 
-int dirPrev=0;
+int dirPrev = 0;
+int offX = 0;
+int offY = 0;
+int dir = 0;
+
 void draw () {
   background(80,230,80);
   /// --- Determine camera to map movement direction and cursor graphic 
-  int offX=0, offY=0, dir;
-  if (mouseX<margin)
-    offX = 7;
-  if (mouseX>width-margin)
-    offX = 3;
-  if (mouseY<margin)
-    offY = 1;
-  if (mouseY>height - margin)
-    offY = 5;
-  if (offX == 7 && offY == 1)
-    dir = 8;
-  else if (offX != 0 && offY != 0)
-    dir = (offX+offY)/2;
-  else
-    dir = offX+offY;
-  if (dir!=dirPrev){
+  
+  dir = 
+  (offX == 7 && offY == 1)? 8 :
+  (offX != 0 && offY != 0)? (offX+offY)/2 : offX+offY;
+    
+  if (dir != dirPrev){
     cursor(cursorImgs[dir],0,0);
     dirPrev = dir;     
   }
@@ -76,21 +70,31 @@ void draw () {
   
   ///A time based update would be better
   world.update();
+  world.render();
   
 }
 
+void mouseMoved() {
+  offX = 
+    (mouseX<margin)? 7 :
+    (mouseX>width-margin)? 3 : 0;
+    
+  offY = 
+    (mouseY<margin)? 1 : 
+    (mouseY>height - margin)? 5 : 0;
+}
 
 void mouseWheel (MouseEvent event){
  //float c = event.getCount();
  //println(c);
  if (event.getCount()>0){
    ///scroll up
-     if (zoomLevel<zoomLimit)
-       zoomLevel *= 2;
+     if (zoomLevel<zoomLimit) {}
+       //zoomLevel *= 2;
    }
    else{
-      ///scroll down
-     if (zoomLevel>1)
-       zoomLevel /= 2;
+      ///scroll down 
+     if (zoomLevel>1) {}
+       //zoomLevel /= 2;
    }
 }

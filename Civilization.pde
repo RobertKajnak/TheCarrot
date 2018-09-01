@@ -2,17 +2,13 @@ import java.util.List;
 
 public class Civilization{
   String name;
-  List <Unit> units;
-  List <Building> buildings;
-  Inventory inv;
-  Techtree tech;
+  List <Unit> units = new ArrayList<Unit>();
+  List <Building> buildings = new ArrayList<Building>();
+  Inventory inventory = new Inventory();
+  Techtree tech = new Techtree();
 
-  public Civilization(){
-   units = new ArrayList<Unit>();
-   buildings = new ArrayList<Building>(); 
-  }
+  public Civilization() {}
   
-    
   public void add(Unit unit){
    units.add(unit); 
   }
@@ -29,6 +25,14 @@ public class Civilization{
      for (Building building : buildings){
         building.update(); 
      }
+  }
+  
+  void render() {
+    for (Building building : buildings)
+      building.render();
+      
+    for (Unit unit : units)
+      unit.render();
   }
   
   
