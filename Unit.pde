@@ -69,10 +69,16 @@ class Unit extends Entity {
   void render() {
     renderImage();
   
-    fill(255, 0, 0);
-    ellipse(x, y, 20, 20);
+    if (isVisible(x, y, 20, 20)) {
+      
+      int nx = worldCoordToScreenCoord(x, cameraX, zoomLevel);
+      int ny = worldCoordToScreenCoord(y, cameraY, zoomLevel);
+      
+      fill(255, 0, 0);
+      ellipse(nx, ny, 20, 20);
    
-    fill(255);
-    text(state, x, y);
+      fill(255);
+      text(state, nx, ny);
+    }
   }
 }

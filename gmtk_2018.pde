@@ -126,7 +126,4 @@ void mouseWheel (MouseEvent event){
      }
    }
    println(cameraMaxX);
-   //println(zoomLevel);
-   //println(cameraX);
-   //println(cameraX + zoomLevel* widthForZoomLevel/2);
 }

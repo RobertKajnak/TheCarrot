@@ -17,6 +17,8 @@ class Stash extends Entity {
    }
    
    void render() {
+     renderImage();
+     
      fill(100, 0, 100);
      ellipse(x, y, 50, 50);
      
