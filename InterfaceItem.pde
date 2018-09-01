@@ -36,7 +36,7 @@ abstract class InterfaceItem{
   }
   
   public void click(){
-    if (function!=null)
+    if (function!=null && insideRect(mouseX,mouseY, X, Y, img.width,img.height))
        function.run();
     
   }
