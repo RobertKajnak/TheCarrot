@@ -22,8 +22,8 @@ class Stash extends Entity {
      
     if (isVisible(x, y, 20, 20)) {
       
-      int nx = worldCoordToScreenCoord(x, cameraX, zoomLevel);
-      int ny = worldCoordToScreenCoord(y, cameraY, zoomLevel);
+      int nx = worldCoordToScreenCoord(x, cameraX);
+      int ny = worldCoordToScreenCoord(y, cameraY);
      
       fill(100, 0, 100);
       ellipse(nx, ny, 50, 50);

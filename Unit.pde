@@ -96,8 +96,8 @@ class Unit extends Entity {
   
     if (isVisible(x, y, 20, 20)) {
       
-      int nx = worldCoordToScreenCoord(x, cameraX, zoomLevel);
-      int ny = worldCoordToScreenCoord(y, cameraY, zoomLevel);
+      int nx = worldCoordToScreenCoord(x, cameraX);
+      int ny = worldCoordToScreenCoord(y, cameraY);
       
       fill(255, 0, 0);
       ellipse(nx, ny, 20, 20);

@@ -21,8 +21,8 @@ abstract class Entity{
      if (isVisible(x, y, img.width, img.height))
        image (
          img, 
-         worldCoordToScreenCoord(x, cameraX, zoomLevel), 
-         worldCoordToScreenCoord(y, cameraY, zoomLevel)
+         worldCoordToScreenCoord(x, cameraX), 
+         worldCoordToScreenCoord(y, cameraY)
        );
   }
 }
