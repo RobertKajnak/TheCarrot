@@ -3,8 +3,8 @@ class Building extends Entity {
  
   Inventory inventory = new Inventory();
   
-  public Building(int x, int y) {
-    super("Building", x,y);
+  public Building(int x, int y, String name) {
+    super(name, x,y);
   }
 
   void update (){

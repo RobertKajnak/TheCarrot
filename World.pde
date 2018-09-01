@@ -3,7 +3,7 @@ import java.util.Map;
 
 class World {
   List <Civilization> civs = new ArrayList<Civilization>();;
-  public List <Resource> resources = new ArrayList<Resource>();
+  public List<Stash> resources = new ArrayList<Stash>();
 
   List<String> reqAssets = new ArrayList<String>();
   
@@ -28,9 +28,9 @@ class World {
 
         // Initializations
         civs.get(0).add(new Unit("peon",100,100, this, civs.get(0)));
-        civs.get(0).add(new Building(200, 200));
+        civs.get(0).add(new Building(200, 200, "Building"));
         
-        resources.add(new Resource(500, 300, 20));
+        resources.add(new Stash(500, 300, "Purple Stuff", new Food(20)));
 
         break;
     }
@@ -44,17 +44,17 @@ class World {
   }
   
   private void removeDepletedResources() {
-    List<Resource> tempRes = resources;
-    resources = new ArrayList<Resource>();
+    List<Stash> tempRes = resources;
+    resources = new ArrayList<Stash>();
     
-    for (Resource res : tempRes)
-      if (res.amount > 0) {
+    for (Stash res : tempRes)
+      if (res.type.amount > 0) {
         resources.add(res);
       }
   }
   
   public void render() {
-    for (Resource resource : resources)
+    for (Stash resource : resources)
       resource.render();
   
     for (Civilization civ : civs)

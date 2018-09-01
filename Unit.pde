@@ -7,6 +7,7 @@ class Unit extends Entity {
   
   int speed = 1;
   int range = 500;
+  int extractingAmount = 10;
   Inventory inventory = new Inventory();
   
   String state = "Gathering";
@@ -20,7 +21,7 @@ class Unit extends Entity {
   void update() {
     switch (state) {
       case "Gathering":
-        for (Resource resource : world.resources) {
+        for (Stash resource : world.resources) {
           
           if (distance(resource, this) < range) {
             x = stepTowards(x, resource.x, speed);
@@ -28,8 +29,8 @@ class Unit extends Entity {
           }
           
           if (distance(resource, this) < 10) {
-            resource.extract(10);
-            inventory.add(resource.name, 10);
+            Resource extracted = resource.extract(extractingAmount);
+            inventory.add(extracted);
           }
           
           if (inventory.nonEmpty()) {
@@ -57,9 +58,6 @@ class Unit extends Entity {
         }
         break;
     }
-   
-   //this.x += RNG.nextInt()%20 + (10 *Math.signum(mouseX-x/zoomLevel))* Math.abs(RNG.nextDouble());
-   //this.y += RNG.nextInt()%20 + (10* Math.signum(mouseY-y/zoomLevel))* Math.abs(RNG.nextDouble());
   }
   
   int stepTowards(int s, int d, int speed) {
@@ -69,17 +67,6 @@ class Unit extends Entity {
   }
  
  void render() {
-   /*
-   PImage img = assets.get(name + "_z" + zoomLevel);
-    if (img==null)
-        img = imagePlaceholder;
-        
-   if (cameraMinX < x + img.width && cameraMaxX > x - img.width && 
-       cameraMinY < y + img.height && cameraMaxY > y - img.height){
-         image (img,x/zoomLevel - cameraX, y/zoomLevel - cameraY);
-   }
-   */
-   
    fill(255, 0, 0);
    ellipse(x, y, 20, 20);
    

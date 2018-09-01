@@ -1,25 +1,23 @@
-class Resource extends Entity {
-   
-  int amount = 200;
-   
-   public Resource(int x, int y, int amount) {
-     super("Food", x, y);
-     this.amount = amount;
-   }
-   
-   void extract(int nr) {
-     amount -= nr;
-   }
-   
-   void update(){
-     
-   }
-   
-   void render() {
-     fill(100, 0, 100);
-     ellipse(x, y, 50, 50);
-     
-     fill(255);
-     text(name + ": " + amount, x, y);
-   }
+abstract class Resource {
+  abstract String getName();
+  int amount = 0;
+  abstract Resource withAmount(int amount);
+}
+
+class Food extends Resource { 
+  String getName() { return "Food"; } 
+  public Food(int amount) { this.amount = amount; }
+  Resource withAmount(int amount) { return new Food(amount); }
+}
+
+class Wood extends Resource { 
+  String getName() { return "Wood"; }
+  public Wood(int amount) { this.amount = amount; }
+  Resource withAmount(int amount) { return new Wood(amount); }
+}
+
+class Iron extends Resource { 
+  String getName() { return "Iron"; }
+  public Iron(int amount) { this.amount = amount; }
+  Resource withAmount(int amount) { return new Iron(amount); }
 }

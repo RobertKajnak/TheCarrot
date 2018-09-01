@@ -1,21 +1,29 @@
 class Inventory {
   
-  int food = 0;
-  int wood = 0;
-  int iron = 0;
+  Food food = new Food(0);
+  Wood wood = new Wood(0);
+  Iron iron = new Iron(0);
   
-  void add(String name, int nr) {
-    food += nr;
+  void add(Resource type) {
+    if (type instanceof Food) {
+      food.amount += type.amount;
+    }
+    else if (type instanceof Wood) {
+      wood.amount += type.amount;
+    }
+    else if (type instanceof Iron) {
+      iron.amount += type.amount;
+    }
   }
   
   void add(Inventory inventory) {
-    food += inventory.food;
-    wood += inventory.wood;
-    iron += inventory.iron;
+    food.amount += inventory.food.amount;
+    wood.amount += inventory.wood.amount;
+    iron.amount += inventory.iron.amount;
   }
   
   boolean empty() {
-    return (food == 0) && (wood == 0) && (iron == 0);
+    return (food.amount == 0) && (wood.amount == 0) && (iron.amount == 0);
   }
   
   boolean nonEmpty() {
@@ -23,6 +31,12 @@ class Inventory {
   }
   
   String toString() {
-    return String.format("Food: %d\nWood: %d\nIron: %d", food, wood, iron);
+    return 
+      String.format(
+        "Food: %d\nWood: %d\nIron: %d", 
+        food.amount, 
+        wood.amount, 
+        iron.amount
+      );
   }
 }
