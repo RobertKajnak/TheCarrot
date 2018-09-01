@@ -8,6 +8,7 @@ int cameraX,cameraY; //top left corner
 int cameraMinX, cameraMaxX, cameraMinY, cameraMaxY;
 int zoomLevel = 1, zoomLimit = 16;
 double widthForZoomLevel,heightForZoomLevel;
+double cameraMoveSpeed = 20;
 
 /// --- camera values relative to the display window
 /// margin at which the camera is moved relative to the map and the cursor is changed
@@ -60,6 +61,8 @@ void draw () {
     cursor(cursorImgs[dir],0,0);
     dirPrev = dir;     
   }
+  
+    
     
   int w = (int)(zoomLevel*widthForZoomLevel/2);
   int h = (int)(zoomLevel*heightForZoomLevel/2);
@@ -89,12 +92,19 @@ void mouseWheel (MouseEvent event){
  //println(c);
  if (event.getCount()>0){
    ///scroll up
-     if (zoomLevel<zoomLimit) {}
-       //zoomLevel *= 2;
+     if (zoomLevel<zoomLimit) {
+       cameraX -= zoomLevel/2 * widthForZoomLevel;
+       cameraY -= zoomLevel/2 * heightForZoomLevel;
+       zoomLevel *= 2; 
+     }
    }
    else{
       ///scroll down 
-     if (zoomLevel>1) {}
-       //zoomLevel /= 2;
+     if (zoomLevel>1){
+       zoomLevel /= 2;
+       cameraX += zoomLevel/2 * widthForZoomLevel;
+       cameraY += zoomLevel/2 * heightForZoomLevel;
+     }
    }
+   println(zoomLevel);
 }

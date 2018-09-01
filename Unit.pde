@@ -69,17 +69,8 @@ class Unit extends Entity {
   }
  
  void render() {
-   /*
-   PImage img = assets.get(name + "_z" + zoomLevel);
-    if (img==null)
-        img = imagePlaceholder;
-        
-   if (cameraMinX < x + img.width && cameraMaxX > x - img.width && 
-       cameraMinY < y + img.height && cameraMaxY > y - img.height){
-         image (img,x/zoomLevel - cameraX, y/zoomLevel - cameraY);
-   }
-   */
-   
+  renderImage();
+  
    fill(255, 0, 0);
    ellipse(x, y, 20, 20);
    
