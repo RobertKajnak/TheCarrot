@@ -117,6 +117,17 @@ void mouseMoved() {
   }
 }
 
+void mousePressed() {
+  world.resources.add(
+    new Stash(
+      screenCoordToWorldCoord(mouseX, cameraX), 
+      screenCoordToWorldCoord(mouseY, cameraY), 
+      "bush", 
+      new Food(5)
+    )
+  );
+}
+
 void mouseWheel (MouseEvent event){
  //float c = event.getCount();
  //println(c);
@@ -138,7 +149,7 @@ void mouseWheel (MouseEvent event){
        cameraY += zoomLevel* heightForZoomLevel /2;
      }
    }
-   println(cameraMaxX);
+   //println(cameraMaxX);
    //println(zoomLevel);
    //println(cameraX);
    //println(cameraX + zoomLevel* widthForZoomLevel/2);

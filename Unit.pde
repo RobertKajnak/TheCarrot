@@ -9,6 +9,7 @@ class Unit extends Entity {
   int range = 500;
   int extractingAmount = 10;
   Inventory inventory = new Inventory();
+  Stash target = null;
   
   String state = "Gathering";
   
@@ -21,20 +22,25 @@ class Unit extends Entity {
   void update() {
     switch (state) {
       case "Gathering":
-        for (Stash resource : world.resources) {
+        if (hasNoTarget() || !exists(target, world.resources)) {
+          target = selectNewStash(world.resources);
+        }
+        else {
+          if (exists(target, world.resources)) {
+            if (distance(target, this) < range) {
+              x = stepTowards(x, target.x, speed);
+              y = stepTowards(y, target.y, speed);
+            }
           
-          if (distance(resource, this) < range) {
-            x = stepTowards(x, resource.x, speed);
-            y = stepTowards(y, resource.y, speed);
-          }
+            if (distance(target, this) < 10) {
+              Resource extracted = target.extract(extractingAmount);
+              inventory.add(extracted);
+            }
           
-          if (distance(resource, this) < 10) {
-            Resource extracted = resource.extract(extractingAmount);
-            inventory.add(extracted);
-          }
-          
-          if (inventory.nonEmpty()) {
-            state = "Collecting";
+            if (inventory.nonEmpty()) {
+              target = null;
+              state = "Collecting";
+            }
           }
         }
         break;
@@ -60,6 +66,25 @@ class Unit extends Entity {
     }
   }
   
+  Stash selectNewStash(List<Stash> resources) {
+    for (Stash resource : resources) {
+      if (distance(resource, this) < range) 
+        return resource;
+    }
+    return null;
+  }
+  
+  boolean exists(Stash stash, List<Stash> stashes) {
+    for (Stash s : stashes)
+      if (s == stash)
+        return true;
+    return false;
+  }
+  
+  boolean hasNoTarget() {
+    return target == null;
+  }
+  
   int stepTowards(int s, int d, int speed) {
     return 
       (s < d)? s + speed :
@@ -69,10 +94,16 @@ class Unit extends Entity {
   void render() {
     renderImage();
   
-    fill(255, 0, 0);
-    ellipse(x, y, 20, 20);
+    if (isVisible(x, y, 20, 20)) {
+      
+      int nx = worldCoordToScreenCoord(x, cameraX);
+      int ny = worldCoordToScreenCoord(y, cameraY);
+      
+      fill(255, 0, 0);
+      ellipse(nx, ny, 20, 20);
    
-    fill(255);
-    text(state, x, y);
+      fill(255);
+      text(state + " - " + target + " | " + inventory.toString(), nx, ny);
+    }
   }
 }

@@ -16,12 +16,13 @@ abstract class Entity{
   
   void renderImage(){
      PImage img = assets.get(name + "_z" + zoomLevel);
-     if (img==null)
-          img = imagePlaceholder;
+     if (img==null) img = imagePlaceholder;
           
-     if (cameraMinX < x + img.width && cameraMaxX > x - img.width && 
-         cameraMinY < y + img.height && cameraMaxY > y - img.height){
-           image (img,(x - cameraX)/zoomLevel, (y - cameraY)/zoomLevel);
-     }
+     if (isVisible(x, y, img.width, img.height))
+       image (
+         img, 
+         worldCoordToScreenCoord(x, cameraX), 
+         worldCoordToScreenCoord(y, cameraY)
+       );
   }
 }
