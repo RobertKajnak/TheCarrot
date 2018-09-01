@@ -8,7 +8,7 @@ int cameraX,cameraY; //top left corner
 int cameraMinX, cameraMaxX, cameraMinY, cameraMaxY;
 int zoomLevel = 1, zoomLimit = 16;
 double widthForZoomLevel,heightForZoomLevel;
-double cameraMoveSpeed = 20;
+double cameraMoveSpeed = 10;
 
 /// --- camera values relative to the display window
 /// margin at which the camera is moved relative to the map and the cursor is changed
@@ -22,7 +22,9 @@ World world;
 void setup() {
   size(1280,720);
   
+  imagePlaceholder = loadImage(resdir + "placeholder.png");
   loadCursorImages();
+  cursor(cursorImgs[0],0,0);
   
   RNG = new Random();
   assets = new HashMap<String,PImage>();
@@ -31,6 +33,7 @@ void setup() {
   zoomLevel = 1;
   widthForZoomLevel = width ;
   heightForZoomLevel = height;
+  imageMode(CENTER);
 } 
 
 void loadCursorImages() {
@@ -38,7 +41,6 @@ void loadCursorImages() {
   for (int i=0;i<9;i++){
    cursorImgs[i] = loadImage(resdir + "arrowHead"+i+".png"); 
   }
-  imagePlaceholder = loadImage(resdir + "placeholder.png");
 }
 
 
@@ -58,14 +60,15 @@ void draw () {
     cursor(cursorImgs[dir],0,0);
     dirPrev = dir;     
   }
-  
+  cameraX += cameraMoveSpeed * (1+zoomLevel/2) * ((dir<=8 && dir>=6)?-1:(dir>=2 && dir<=4)?1:0);
+  cameraY += cameraMoveSpeed * (1+zoomLevel/2) * ((dir%8<=2 && dir !=0)?-1:(dir>=4 && dir<=6)?1:0);
     
-  int w = (int)(zoomLevel*widthForZoomLevel/2);
-  int h = (int)(zoomLevel*heightForZoomLevel/2);
-  cameraMinX = cameraX+width/2 - w;
-  cameraMaxX = cameraX+width/2 + w;
-  cameraMinY = cameraY+height/2 - h;
-  cameraMaxY = cameraY+height/2 + h;
+  int w = (int)(zoomLevel*widthForZoomLevel);
+  int h = (int)(zoomLevel*heightForZoomLevel);
+  cameraMinX = cameraX;
+  cameraMaxX = cameraX + w;
+  cameraMinY = cameraY;
+  cameraMaxY = cameraY + h;
   
   ///A time based update would be better
   world.update();
@@ -107,8 +110,9 @@ void mouseWheel (MouseEvent event){
  if (event.getCount()>0){
    ///scroll up
      if (zoomLevel<zoomLimit) {
-       cameraX -= zoomLevel/2 * widthForZoomLevel;
-       cameraY -= zoomLevel/2 * heightForZoomLevel;
+       cameraX -= zoomLevel * widthForZoomLevel /2;
+       cameraY -= zoomLevel * heightForZoomLevel /2;
+       
        zoomLevel *= 2; 
      }
    }
@@ -116,9 +120,13 @@ void mouseWheel (MouseEvent event){
       ///scroll down 
      if (zoomLevel>1){
        zoomLevel /= 2;
-       cameraX += zoomLevel/2 * widthForZoomLevel;
-       cameraY += zoomLevel/2 * heightForZoomLevel;
+       
+       cameraX += zoomLevel* widthForZoomLevel /2;
+       cameraY += zoomLevel* heightForZoomLevel /2;
      }
    }
-   println(zoomLevel);
+   println(cameraMaxX);
+   //println(zoomLevel);
+   //println(cameraX);
+   //println(cameraX + zoomLevel* widthForZoomLevel/2);
 }

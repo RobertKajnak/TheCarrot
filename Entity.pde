@@ -21,7 +21,7 @@ abstract class Entity{
           
      if (cameraMinX < x + img.width && cameraMaxX > x - img.width && 
          cameraMinY < y + img.height && cameraMaxY > y - img.height){
-           image (img,x/zoomLevel - cameraX - img.width/2, y/zoomLevel - cameraY-img.height/2);
+           image (img,(x - cameraX)/zoomLevel, (y - cameraY)/zoomLevel);
      }
   }
 }
