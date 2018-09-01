@@ -105,7 +105,14 @@ void mouseMoved() {
 }
 
 void mousePressed() {
-  world.resources.add(new Stash((mouseX - cameraX)/zoomLevel, (mouseY - cameraX)/zoomLevel + offY, "bush", new Food(5)));
+  world.resources.add(
+    new Stash(
+      screenCoordToWorldCoord(mouseX, cameraX), 
+      screenCoordToWorldCoord(mouseY, cameraY), 
+      "bush", 
+      new Food(5)
+    )
+  );
 }
 
 void mouseWheel (MouseEvent event){
