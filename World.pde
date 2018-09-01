@@ -29,7 +29,7 @@ class World {
 
         // Initializations
         civs.get(0).add(new Unit("peon",width/2,height/2, this, civs.get(0)));
-        civs.get(0).add(new Unit("peon",100,100, this, civs.get(0)));
+        civs.get(0).add(new Unit("peon",0,0, this, civs.get(0)));
         civs.get(0).add(new Building(200, 200, "Building"));
         
         //resources.add(new Stash(500, 300, "bush", new Food(50)));
