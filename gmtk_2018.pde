@@ -13,6 +13,10 @@ double cameraMoveSpeed = 10;
 /// --- camera values relative to the display window
 /// margin at which the camera is moved relative to the map and the cursor is changed
 int margin = 30;
+/// --- HUD
+///Starting point of the interface
+HUD mainHUD;
+int R=80,G=230,B=80;
 
 PImage[] cursorImgs;
 
@@ -34,7 +38,15 @@ void setup() {
   widthForZoomLevel = width ;
   heightForZoomLevel = height;
   imageMode(CENTER);
+  textAlign(CENTER,CENTER);
+  textSize(16);
+  
+  Runnable RRR = new Runnable(){public void run(){R=255-R;G=255-G;B=255-B;};};
+//  RRR.run();
+  mainHUD = new HUD(null,width/2,height - height /5/2,width*3/4,height/5);
+  mainHUD.add(new Button(mainHUD,50,50,"Tech Tree",RRR));
 } 
+
 
 void loadCursorImages() {
   cursorImgs =new PImage[9];
@@ -50,7 +62,7 @@ int offY = 0;
 int dir = 0;
 
 void draw () {
-  background(80,230,80);
+  background(R,G,B);
   
   dir = 
   (offX == 7 && offY == 1)? 8 :
@@ -60,8 +72,8 @@ void draw () {
     cursor(cursorImgs[dir],0,0);
     dirPrev = dir;     
   }
-  cameraX += cameraMoveSpeed * (1+zoomLevel/2) * ((dir<=8 && dir>=6)?-1:(dir>=2 && dir<=4)?1:0);
-  cameraY += cameraMoveSpeed * (1+zoomLevel/2) * ((dir%8<=2 && dir !=0)?-1:(dir>=4 && dir<=6)?1:0);
+  cameraX += cameraMoveSpeed * (1+zoomLevel/2) * new int[]{0,0,1,1,1,0,-1,-1,-1}[dir];
+  cameraY += cameraMoveSpeed * (1+zoomLevel/2) * new int[]{0,-1,-1,0,1,1,1,0,-1}[dir];
     
   int w = (int)(zoomLevel*widthForZoomLevel);
   int h = (int)(zoomLevel*heightForZoomLevel);
@@ -74,6 +86,7 @@ void draw () {
   world.update();
   world.render();
   
+  mainHUD.render();
 }
 
 void mouseMoved() {
@@ -99,7 +112,7 @@ void mouseMoved() {
     (offX != 0 && offY != 0)? (offX+offY)/2 : offX+offY;
     
   if (dir != dirPrev){
-    cursor(cursorImgs[dir],0,0);
+    cursor(cursorImgs[dir],new int[]{3,15,31,31,31,15,0,0,0}[dir],new int[]{2,0,0,15,31,31,31,15,0}[dir]);
     dirPrev = dir;     
   }
 }
@@ -129,4 +142,8 @@ void mouseWheel (MouseEvent event){
    //println(zoomLevel);
    //println(cameraX);
    //println(cameraX + zoomLevel* widthForZoomLevel/2);
+}
+
+void mouseClicked(){
+   mainHUD.click(); 
 }
