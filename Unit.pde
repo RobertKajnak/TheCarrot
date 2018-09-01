@@ -1,13 +1,14 @@
 import java.util.Random;
 
 class Unit extends Entity{
-  public Unit(PImage im, int x, int y){
-    super(im,x,y);
+  public Unit(String name, int x, int y){
+    super(name,x,y);
     
   }
  void update(){
-   this.X += RNG.nextInt()%10 + (5 *Math.signum(mouseX-X))* Math.abs(RNG.nextDouble());
-   this.Y += RNG.nextInt()%10 + (5* Math.signum(mouseY-Y))* Math.abs(RNG.nextDouble());
+   println(this.X);
+   this.X += RNG.nextInt()%20 + (10 *Math.signum(mouseX-X/zoomLevel))* Math.abs(RNG.nextDouble());
+   this.Y += RNG.nextInt()%20 + (10* Math.signum(mouseY-Y/zoomLevel))* Math.abs(RNG.nextDouble());
    this.paint();
    
  }

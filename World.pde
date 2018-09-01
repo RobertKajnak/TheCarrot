@@ -19,13 +19,15 @@ class World {
       reqAssets.add("peon");
       civs.add(new Civilization());
       for (String ass : reqAssets) {
-        assets.put(ass, loadImage(resdir + ass + ".png"));
+        PImage assIm = loadImage(resdir + ass + ".png");
+        for (int i=1;i<=zoomLimit;i*=2){
+          PImage assImResized = assIm.copy();
+          assImResized.resize(assIm.width/i,assIm.height/i);
+          assets.put(ass + "_z" + i, assImResized);
+        }
       }
 
-      PImage im = assets.get("peon1");
-      if (im==null)
-        im = imagePlaceholder;
-      civs.get(0).add(new Unit(im,100,100));
+      civs.get(0).add(new Unit("peon",100,100));
       //PImage peon2 = loadImage(resdir + "peon_p2.png");
 
       break;

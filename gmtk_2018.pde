@@ -6,7 +6,7 @@ Random RNG;
 /// --- Camera values relative to the global map
 int cameraX,cameraY; //top left corner
 int cameraMinX, cameraMaxX, cameraMinY, cameraMaxY;
-int zoomLevel = 1;
+int zoomLevel = 1, zoomLimit = 16;
 double widthForZoomLevel,heightForZoomLevel;
 
 /// --- camera values relative to the display window
@@ -37,7 +37,7 @@ void setup() {
   assets = new HashMap<String,PImage>();
   world = new World("start");
 
-  zoomLevel = 1;
+  zoomLevel = 2;
   widthForZoomLevel = width ;
   heightForZoomLevel = height;
 } 
@@ -45,6 +45,7 @@ void setup() {
 
 int dirPrev=0;
 void draw () {
+  background(80,230,80);
   /// --- Determine camera to map movement direction and cursor graphic 
   int offX=0, offY=0, dir;
   if (mouseX<margin)
@@ -72,7 +73,24 @@ void draw () {
   cameraMaxX = cameraX+width/2 + w;
   cameraMinY = cameraY+height/2 - h;
   cameraMaxY = cameraY+height/2 + h;
+  
   ///A time based update would be better
   world.update();
   
+}
+
+
+void mouseWheel (MouseEvent event){
+ //float c = event.getCount();
+ //println(c);
+ if (event.getCount()>0){
+   ///scroll up
+     if (zoomLevel<zoomLimit)
+       zoomLevel *= 2;
+   }
+   else{
+      ///scroll down
+     if (zoomLevel>1)
+       zoomLevel /= 2;
+   }
 }
