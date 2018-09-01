@@ -12,10 +12,16 @@ class Building extends Entity {
   }
   
   void render() {
-    fill(255, 0, 0);
-    rect(x, y, 50, 50);
+    if (isVisible(x, y, 20, 20)) {
+      
+      int nx = worldCoordToScreenCoord(x, cameraX, zoomLevel);
+      int ny = worldCoordToScreenCoord(y, cameraY, zoomLevel);
+     
+      fill(255, 0, 0);
+      rect(nx, ny, 50, 50);
     
-    fill(255);
-    text(inventory.toString(), x, y);
+      fill(255);
+      text(inventory.toString(), nx, ny);
+    }
   }
 }
