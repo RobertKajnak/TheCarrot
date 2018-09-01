@@ -6,11 +6,20 @@ public class Civilization{
   List <Building> buildings;
   Inventory inv;
   Techtree tech;
-  
+
   public Civilization(){
    units = new ArrayList<Unit>();
    buildings = new ArrayList<Building>(); 
   }
+  
+    
+  public void add(Unit unit){
+   units.add(unit); 
+  }
+  public void add(Building building){
+    buildings.add(building);
+  }
+  
   
   void update(){
      for (Unit unit : units){
@@ -21,5 +30,6 @@ public class Civilization{
         building.update(); 
      }
   }
+  
   
 }

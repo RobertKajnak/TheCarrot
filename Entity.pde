@@ -13,12 +13,20 @@ public abstract class Entity{
   avatar = this.img;
  }
 
+public Entity(PImage img, int x, int y){
+  this.X = x;
+  this.Y = y;
+  this.img = img;
+  avatar = this.img;
+  
+}
  
  abstract void update();
  
- void draw(){
-   if (cameraMinX < X && cameraMaxX >X && cameraMinY < Y && cameraMaxY > Y){
-     //img = ;
+ void paint(){
+   if (cameraMinX < X + img.width && cameraMaxX > X - img.width && 
+       cameraMinY < Y + img.height && cameraMaxY > Y - img.height){
+         image (this.img,X - cameraX, Y - cameraY);
    }
  }
   
