@@ -39,10 +39,10 @@ boolean debugView = false;
 void setup() {
   size(1280,720);
   
-  mapXMin = -10000;
-  mapXMax = 50000;
-  mapYMin = -10000;
-  mapYMax = 50000;
+  mapXMin = -1000;
+  mapXMax = 5000;
+  mapYMin = -1000;
+  mapYMax = 5000;
   
   
   imagePlaceholder = loadImage(resdir + "placeholder.png");
@@ -191,8 +191,17 @@ void mouseReleased(){
      cameraX = (int)minimapV.x;
      cameraY = (int)minimapV.y;
    }
-   if (!anyclicked && insideRect(screenCoordToWorldCoord(mouseX, cameraX),screenCoordToWorldCoord(mouseY, cameraY), mapXMin, mapYMin, (mapXMax-mapXMin)*2,(mapYMax-mapYMin)*2 ))
-   {
+   if (
+     !anyclicked && 
+     insideRect(
+       screenCoordToWorldCoord(mouseX, cameraX),
+       screenCoordToWorldCoord(mouseY, cameraY), 
+       mapXMin, 
+       mapYMin, 
+       (mapXMax-mapXMin)*2,
+       (mapYMax-mapYMin)*2 
+     )
+   ) {
      Resource resToAdd;
      switch (activeBushType){
        case "bush":
