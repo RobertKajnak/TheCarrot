@@ -35,6 +35,7 @@ World world;
 String activeBushType = "";
 
 boolean debugView = false;
+boolean isPaused = false;
 
 AI ai = null;
 
@@ -66,6 +67,8 @@ void setup() {
   minimap = new Minimap(width-300,height-200,180,180,world);
   buildHUD();
   
+  assets.put("help",loadImage(resdir + "help.png"));
+  
 } 
 
 void loadCursorImages() {
@@ -82,44 +85,45 @@ int offY = 0;
 int dir = 0;
 
 void draw () {
-  background(R,G,B);
-  
-  dir = 
-  (offX == 7 && offY == 1)? 8 :
-  (offX != 0 && offY != 0)? (offX+offY)/2 : offX+offY;
+  if (!isPaused){
+    background(R,G,B);
     
-  if (dir != dirPrev){
-    cursor(cursorImgs[dir],0,0);
-    dirPrev = dir;     
-  }
-  
-  cameraX += cameraMoveSpeed * (1+zoomLevel/2) * new int[]{0,0,1,1,1,0,-1,-1,-1}[dir];
-  cameraY += cameraMoveSpeed * (1+zoomLevel/2) * new int[]{0,-1,-1,0,1,1,1,0,-1}[dir];
-  cameraX = max(mapXMin,cameraX);
-  cameraX = min(mapXMax - (int)(zoomLevel*widthForZoomLevel),cameraX);
-  cameraY = max(mapYMin,cameraY);
-  cameraY = min(mapYMax - (int)(zoomLevel*heightForZoomLevel),cameraY);
+    dir = 
+    (offX == 7 && offY == 1)? 8 :
+    (offX != 0 && offY != 0)? (offX+offY)/2 : offX+offY;
+      
+    if (dir != dirPrev){
+      cursor(cursorImgs[dir],0,0);
+      dirPrev = dir;     
+    }
     
-  int w = (int)(zoomLevel*widthForZoomLevel);
-  int h = (int)(zoomLevel*heightForZoomLevel);
-  cameraMinX = cameraX;
-  cameraMaxX = cameraX + w;
-  cameraMinY = cameraY;
-  cameraMaxY = cameraY + h;
-  
-  ///A time based update would be better
-  world.update();
-  world.render();
-  
-  updateFervour();
-  
-  for (HUD hud : HUDs){
-    hud.render();
+    cameraX += cameraMoveSpeed * (1+zoomLevel/2) * new int[]{0,0,1,1,1,0,-1,-1,-1}[dir];
+    cameraY += cameraMoveSpeed * (1+zoomLevel/2) * new int[]{0,-1,-1,0,1,1,1,0,-1}[dir];
+    cameraX = max(mapXMin,cameraX);
+    cameraX = min(mapXMax - (int)(zoomLevel*widthForZoomLevel),cameraX);
+    cameraY = max(mapYMin,cameraY);
+    cameraY = min(mapYMax - (int)(zoomLevel*heightForZoomLevel),cameraY);
+      
+    int w = (int)(zoomLevel*widthForZoomLevel);
+    int h = (int)(zoomLevel*heightForZoomLevel);
+    cameraMinX = cameraX;
+    cameraMaxX = cameraX + w;
+    cameraMinY = cameraY;
+    cameraMaxY = cameraY + h;
+    
+    ///A time based update would be better
+    world.update();
+    world.render();
+    
+    updateFervour();
+    
+    for (HUD hud : HUDs){
+      hud.render();
+    }
+    
+    minimap.render();
+    if (ai != null) ai.update();
   }
-  
-  minimap.render();
-  
-  if (ai != null) ai.update();
 }
 
 void keyPressed() {
@@ -236,6 +240,12 @@ void mouseReleased(){
         );
      }
    }
+}
+
+void keyReleased() {
+  if (key == 'h' || key == 'H' || key == 'p' || key == 'P')
+    isPaused = !isPaused;
+    showHelpScreen();
 }
 
 Resource spendOnResource(Resource resource, int cost) {

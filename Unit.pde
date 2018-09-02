@@ -94,8 +94,10 @@ abstract class Unit extends Entity {
     int nx = worldCoordToScreenCoord(x, cameraX);
     int ny = worldCoordToScreenCoord(y, cameraY);
     
-    noStroke();
-    fill(255, 255, 255, 50);
+    //noStroke();
+    //fill(255, 255, 255, 50);
+    noFill();
+    stroke(47,235,230);
     ellipse(nx, ny, range * 2 / zoomLevel, range * 2 / zoomLevel);
     stroke(0);
   
