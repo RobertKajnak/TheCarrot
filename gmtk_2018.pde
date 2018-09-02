@@ -6,7 +6,7 @@ Random RNG;
 /// --- Camera values relative to the global map
 int cameraX,cameraY; //top left corner
 int cameraMinX, cameraMaxX, cameraMinY, cameraMaxY;
-int zoomLevel = 1, zoomLimit = 4;
+int zoomLevel = 1, zoomLimit = 3;
 double widthForZoomLevel,heightForZoomLevel;
 double cameraMoveSpeed = 10;
 int mapXMin, mapXMax, mapYMin,mapYMax;
@@ -44,13 +44,15 @@ boolean isPaused = false;
 
 AI ai = null;
 
+int gameState = 0;
+
 void setup() {
   size(1280,720);
   
-  mapXMin = -1000;
-  mapXMax = 5000;
-  mapYMin = -1000;
-  mapYMax = 5000;
+  mapXMin = -1500;
+  mapXMax = 1500;
+  mapYMin = -1500;
+  mapYMax = 1500;
   
   
   imagePlaceholder = loadImage(resdir + "placeholder.png");
@@ -58,7 +60,12 @@ void setup() {
   cursor(cursorImgs[0],0,0);
   
   RNG = new Random();
+  
   assets = new HashMap<String,PImage>();
+  assets.put("help", loadImage(resdir + "help.png"));
+  assets.put("winScreen", loadImage(resdir + "winScreen.png"));
+  assets.put("loseScreen", loadImage(resdir + "loseScreen.png"));
+  
   world = new World("start");
 
   zoomLevel = 1;
@@ -71,8 +78,6 @@ void setup() {
   
   minimap = new Minimap(width-300,height-200,180,180,world);
   buildHUD();
-  
-  assets.put("help",loadImage(resdir + "help.png"));
   
   SS = new Sounds(this);
 } 
@@ -91,6 +96,15 @@ int offY = 0;
 int dir = 0;
 
 void draw () {
+  if (gameState == 1) {
+    image(assets.get("winScreen"),width/2,height/2);
+    return;
+  }
+  else if (gameState == -1) {
+    image(assets.get("loseScreen"),width/2,height/2);
+    return;
+  }
+  
   if (!isPaused){
     background(R,G,B);
     
@@ -132,11 +146,19 @@ void draw () {
   }
 }
 
+void showHelpScreen(){
+  image(assets.get("help"),width/2,height/2);
+}
+
 void keyPressed() {
   if (key == '`') {
     println("Debug View");
     debugView = !debugView;
   }
+  
+  if (key == 'h' || key == 'H' || key == 'p' || key == 'P')
+    isPaused = !isPaused;
+    showHelpScreen();
 }
 
 void mouseMoved() {
@@ -227,9 +249,6 @@ void mouseReleased(){
        case "iron":
          resToAdd = spendOnResource(new Iron(50), 90);
          break;
-       case "nuclear":
-         resToAdd = spendOnResource(new Nuclear(50), 500);
-         break;
        default:
          resToAdd = null;
          break;
@@ -246,14 +265,6 @@ void mouseReleased(){
         );
      }
    }
-}
-
-void keyReleased() {
-  if (key == 'h' || key == 'H' || key == 'p' || key == 'P'){
-    isPaused = !isPaused;
-    showHelpScreen();
-  }
-    
 }
 
 Resource spendOnResource(Resource resource, int cost) {

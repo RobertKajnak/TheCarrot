@@ -49,6 +49,11 @@ public class Civilization {
      removeDeadUnits();
      removeDeadBuildings();
      removeDeadBUC();
+     
+     if (underConstruction.size() == 0 && buildings.size() == 0) {
+       if (name == "Moustache") gameState = -1;
+       else gameState = 1;
+     }
   }
   
   void removeDeadUnits() {

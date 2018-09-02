@@ -92,7 +92,18 @@ void buildHUD(){
   dispnuclear = new  Nuclear(0);
   mainHUD.add(new InterfaceText(mainHUD,400,105,new Nuclear(500),color(255,0,0)));
   mainHUD.add(new InterfaceText(mainHUD,400,30,dispnuclear,0));
-  mainHUD.add(new Button(mainHUD,400,70,"nuclear",new Runnable(){public void run(){activeBushType = "nuclear";};}));
+  mainHUD.add(new Button(mainHUD,400,70,"nuclear",new Runnable(){public void run(){
+    if (dispfervour.amount < 500) return; 
+    SS.Upgrade();
+    for (Civilization civ : world.civs) {
+      if (civ.name == "Moustache") {
+        for (Unit unit : civ.units) {
+           unit.damage += 1;
+        }
+    }
+    }
+    dispfervour.amount -= 500;
+};}));
   
   dispfervour = new  Fervour(0);
   mainHUD.add(new InterfaceText(mainHUD,500,30,dispfervour,0));

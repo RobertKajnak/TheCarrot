@@ -44,9 +44,8 @@ class BuildingUnderConstruction extends Entity {
     text(finishedPercent + "%", nx, ny - 100);
     
     if (isVisible(x, y, 50, 50)){
-      if (finishedPercent>1 && finishedPercent<100 && !SS.Construction.isPlaying()){
+      if (finishedPercent > 1 && finishedPercent < 100 && !SS.Construction.isPlaying()){
             SS.ConstructionStart();
-  
       }
     }
   }

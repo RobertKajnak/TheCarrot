@@ -29,7 +29,7 @@ class Soldier extends Unit {
         goTowardsEnemy();
         
         if (distance(this, enemyTarget) < 10) {
-          enemyTarget.damage();
+          enemyTarget.damage(damage);
           if (isVisible(x,y,100,100)){
             SS.battle();
           }

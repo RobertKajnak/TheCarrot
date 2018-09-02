@@ -40,3 +40,11 @@ boolean isVisible(int x, int y, int width, int height) {
   return cameraMinX < x + width && cameraMaxX > x - width && 
          cameraMinY < y + height && cameraMaxY > y - height;
 }
+
+///checks if x and y are inside rect, where rectX and rectY represent the middle of the rectangle
+public boolean insideRect(int x, int y, int rectX, int rectY, int rectW, int rectH){
+   if (x>rectX-rectW/2 && x<rectX + rectW/2 && y > rectY-rectH && y< rectY+rectH)
+     return true;
+   else
+     return false;
+}

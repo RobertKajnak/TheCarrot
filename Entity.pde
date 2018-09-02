@@ -5,6 +5,7 @@ abstract class Entity{
   public String name;
   
   int hitPoints = 100;
+  int damage = 10;
 
   public Entity(String name, int x, int y){
     this.name = name;
@@ -50,11 +51,11 @@ abstract class Entity{
   
   int buffer = 0;
   
-  void damage() {
+  void damage(int dmg) {
     buffer++;
     if (buffer > 15) {
       buffer = 0;
-      hitPoints -= 10;
+      hitPoints -= dmg;
     }
   }
 }
