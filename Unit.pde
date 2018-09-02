@@ -244,11 +244,16 @@ class Unit extends Entity {
  
   void render() {
     renderImage();
+    
+    int nx = worldCoordToScreenCoord(x, cameraX);
+    int ny = worldCoordToScreenCoord(y, cameraY);
+    
+    noStroke();
+    fill(255, 255, 255, 50);
+    ellipse(nx, ny, range * 2 / zoomLevel, range * 2 / zoomLevel);
+    stroke(0);
   
     if (isVisible(x, y, 20, 20) && debugView) {
-      
-      int nx = worldCoordToScreenCoord(x, cameraX);
-      int ny = worldCoordToScreenCoord(y, cameraY);
       
       fill(255, 255, 0, 0.5);
       ellipse(nx, ny, range * 2 / zoomLevel, range * 2 / zoomLevel);
