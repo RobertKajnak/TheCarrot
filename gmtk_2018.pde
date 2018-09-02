@@ -31,7 +31,7 @@ Map<String,PImage> assets;
 World world;
 String activeBushType = "";
 
-boolean debugView = true;
+boolean debugView = false;
 
 void setup() {
   size(1280,720);

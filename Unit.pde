@@ -2,28 +2,72 @@ import java.util.Random;
 
 abstract class Unit extends Entity {
   
-  public Unit(int x, int y, String name) {
+  int speed = 1;
+  int range = 500;
+  
+  World world;
+  Civilization civ;
+  
+  String state = "Idle";
+  
+  public Unit(int x, int y, String name, World world, Civilization civ) {
     super(name, x, y);
+    this.world = world;
+    this.civ = civ;
+  }
+}
+
+class Soldier extends Unit {
+  
+  public Soldier(String name, int x, int y, World world, Civilization civ) {
+    super(x, y, name, world, civ);
+  }
+  
+  void update() {
+    switch(state) {
+      case "Idle":
+        break;
+      default:
+        state = "Idle";
+        break;
+    }
+  }
+  
+  void render() {
+    renderImage();
+    
+    int nx = worldCoordToScreenCoord(x, cameraX);
+    int ny = worldCoordToScreenCoord(y, cameraY);
+    
+    noStroke();
+    fill(255, 255, 255, 50);
+    ellipse(nx, ny, range * 2 / zoomLevel, range * 2 / zoomLevel);
+    stroke(0);
+  
+    if (isVisible(x, y, 20, 20) && debugView) {
+      
+      fill(255, 255, 0, 0.5);
+      ellipse(nx, ny, range * 2 / zoomLevel, range * 2 / zoomLevel);
+      
+      fill(255, 0, 0);
+      ellipse(nx, ny, 20, 20);
+   
+      fill(255);
+      text(state, nx, ny);
+    }
   }
 }
 
 class Worker extends Unit {
   
-  World world;
-  Civilization civ;
-  
-  int speed = 1;
-  int range = 500;
   int extractingAmount = 10;
   Inventory inventory = new Inventory();
   
   
   Coord target = null;
   
-  String state = "Idle";
-  
   public Worker(String name, int x, int y, World world, Civilization civ) {
-    super(x, y, name);
+    super(x, y, name, world, civ);
     this.world = world;
     this.civ = civ;
   }
@@ -146,6 +190,8 @@ class Worker extends Unit {
         
       default:
         println("UNRECOGNIZED STATE: " + state);
+        target = noTarget();
+        state = "Idle";
         break;
     }
   }

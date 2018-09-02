@@ -53,8 +53,13 @@ class Building extends Entity {
 
   void update () {
     if (inventory.food.amount >= 50) {
-      spawnUnit();
+      spawnWorker();
       inventory.food.amount -= 50;
+    }
+    
+    if (inventory.iron.amount >= 50) {
+      spawnSoldier();
+      inventory.iron.amount -= 50;
     }
     
     if (inventory.wood.amount >= 200) {
@@ -66,11 +71,18 @@ class Building extends Entity {
     }
   }
   
-  void spawnUnit() {
+  void spawnWorker() {
     int nx = randomBetweenBounds(x - 20, x + 20);
     int ny = randomBetweenBounds(y - 20, y + 20);
     
     civ.add(new Worker("peon", nx, ny, world, civ));
+  }
+  
+  void spawnSoldier() {
+    int nx = randomBetweenBounds(x - 20, x + 20);
+    int ny = randomBetweenBounds(y - 20, y + 20);
+    
+    civ.add(new Soldier("soldier_stand", nx, ny, world, civ));
   }
   
   void spawnBuilding(Coord goodPlace) {
