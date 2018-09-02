@@ -13,11 +13,41 @@ abstract class Unit extends Entity {
   int prevY = y;
   
   String state = "Idle";
+  Coord target = null;
   
   public Unit(int x, int y, String name, World world, Civilization civ) {
     super(name, x, y);
     this.world = world;
     this.civ = civ;
+  }
+  
+  boolean hasNoTarget() {
+    return target == null;
+  }
+  
+  int stepTowards(int s, int d, int speed) {
+    return 
+      (s < d)? s + speed :
+      (s > d)? s - speed : s;
+  }
+  
+  boolean isInRange(Entity a) {
+    return distance(this, a) < range;
+  }
+  
+  Coord selectRandomTarget(int x, int y) {
+    int nx = randomBetweenBounds(x - 200, x + 200);
+    int ny = randomBetweenBounds(y - 200, y + 200);
+    return new Coord(nx, ny);
+  }
+  
+  void moveTowardsTarget() {
+    x = stepTowards(x, target.x, speed);
+    y = stepTowards(y, target.y, speed);
+  }
+  
+  Coord noTarget() {
+    return null;
   }
   
   void render() {
@@ -73,7 +103,16 @@ class Soldier extends Unit {
   void update() {
     switch(state) {
       case "Idle":
+        state = "Wandering";
+      
         break;
+        
+      case "Wandering":
+        if (hasNoTarget() || distance(target, this) < 5)
+            target = selectRandomTarget(x, y);
+        else moveTowardsTarget();
+        break;
+        
       default:
         state = "Idle";
         break;
@@ -85,8 +124,6 @@ class Worker extends Unit {
   
   int extractingAmount = 10;
   Inventory inventory = new Inventory();
-  
-  Coord target = null;
   
   public Worker(int x, int y, World world, Civilization civ) {
     super(x, y, "peon", world, civ);
@@ -239,16 +276,6 @@ class Worker extends Unit {
     return false;
   }
   
-  boolean isInRange(Entity a) {
-    return distance(this, a) < range;
-  }
-  
-  Coord selectRandomTarget(int x, int y) {
-    int nx = randomBetweenBounds(x - 200, x + 200);
-    int ny = randomBetweenBounds(y - 200, y + 200);
-    return new Coord(nx, ny);
-  }
-  
   Coord selectBuilding(List<Building> buildings) {
     for (Building building : buildings)
       if (isInRange(building))
@@ -277,15 +304,6 @@ class Worker extends Unit {
     return null;
   }
   
-  void moveTowardsTarget() {
-    x = stepTowards(x, target.x, speed);
-    y = stepTowards(y, target.y, speed);
-  }
-  
-  Coord noTarget() {
-    return null;
-  }
-  
   boolean canNotSeeBuildings(List<Building> buildings) {
     for (Building b : buildings) 
       if (distance(this, b) < range) 
@@ -298,16 +316,6 @@ class Worker extends Unit {
       if (new Coord(s.x, s.y).equals(target)) 
         return true;
     return false;
-  }
-  
-  boolean hasNoTarget() {
-    return target == null;
-  }
-  
-  int stepTowards(int s, int d, int speed) {
-    return 
-      (s < d)? s + speed :
-      (s > d)? s - speed : s;
   }
   
   Stash getTargetStash(List<Stash> stashes) {
