@@ -109,7 +109,7 @@ void buildHUD(){
     dispfervour.amount -= 500;
 };}));
   
-  dispfervour = new  Fervour(0);
+  dispfervour = new  Fervour(500);
   mainHUD.add(new InterfaceText(mainHUD,500,30,dispfervour,0));
   mainHUD.add(new Button(mainHUD,500,70,"fervour",new Runnable(){public void run(){activeBushType = "";};}));
   HUDs.add(mainHUD);

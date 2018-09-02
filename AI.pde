@@ -47,7 +47,7 @@ class AI {
             int x = around(building.x);
             int y = around(building.y);
           
-            world.resources.add(new Stash(x, y, "wood", new Wood(50)));
+            world.resources.add(new Stash(x, y, "wood_1", new Wood(50)));
             fervour -= 50;
             decision = -1;
           }
