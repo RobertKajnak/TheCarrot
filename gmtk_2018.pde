@@ -36,6 +36,8 @@ String activeBushType = "";
 
 boolean debugView = false;
 
+AI ai = null;
+
 void setup() {
   size(1280,720);
   
@@ -116,6 +118,8 @@ void draw () {
   }
   
   minimap.render();
+  
+  if (ai != null) ai.update();
 }
 
 void keyPressed() {

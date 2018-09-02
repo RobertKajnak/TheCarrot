@@ -94,7 +94,7 @@ void buildHUD(){
   mainHUD.add(new InterfaceText(mainHUD,400,30,dispnuclear,0));
   mainHUD.add(new Button(mainHUD,400,70,"nuclear",new Runnable(){public void run(){activeBushType = "nuclear";};}));
   
-  dispfervour = new  Fervour(500);
+  dispfervour = new  Fervour(0);
   mainHUD.add(new InterfaceText(mainHUD,500,30,dispfervour,0));
   mainHUD.add(new Button(mainHUD,500,70,"fervour",new Runnable(){public void run(){activeBushType = "";};}));
   HUDs.add(mainHUD);
