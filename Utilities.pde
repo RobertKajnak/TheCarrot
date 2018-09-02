@@ -6,3 +6,8 @@ public boolean insideRect(int x, int y, int rectX, int rectY, int rectW, int rec
      return false;
   
 }
+
+
+void showHelpScreen(){
+  image(assets.get("help"),width/2,height/2);
+}
