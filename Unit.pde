@@ -13,7 +13,7 @@ class Unit extends Entity {
   
   Coord target = null;
   
-  String state = "Gathering";
+  String state = "Idle";
   
   public Unit(String name, int x, int y, World world, Civilization civ) {
     super(name,x,y);
@@ -23,7 +23,30 @@ class Unit extends Entity {
   
   void update() {
     switch (state) {
+      case "Idle": 
+        if (seeBuildingUnderConstruction()) {
+          state = "Constructing";
+          return;
+        }
+        
+        if (canSeeStash()) {
+          state = "Gathering";
+          return;
+        }
+        
+        if (canNotSeeBuildings(civ.buildings)) {
+          state = "Wandering";
+          return;
+        }
+        
+        break;
+      
       case "Gathering":
+        if (seeBuildingUnderConstruction()) {
+          state = "Constructing";
+          return;
+        }
+      
         if (hasNoTarget() || !isStashAtTarget(world.resources)) {
           target = selectNewStash(world.resources);
         }
@@ -46,23 +69,26 @@ class Unit extends Entity {
         
       case "Collecting":
         if (canNotSeeBuildings(civ.buildings)) {
+          target = noTarget();
           state = "Wandering";
         }
         else {
-          for (Building building : civ.buildings) {
+          if (hasNoTarget()) {
+            target = selectBuilding(civ.buildings);
+          }
+          else {
           
-            if (distance(building, this) < range) {
-              x = stepTowards(x, building.x, speed);
-              y = stepTowards(y, building.y, speed);
-            }
+            moveTowardsTarget();
           
-            if (distance(building, this) < 10) {
+            if (distance(target, this) < 10) {
+              Building building = getTargetBuilding(civ.buildings);
               building.inventory.add(inventory);
               inventory = new Inventory();
             }
           
             if (inventory.empty()) {
-              state = "Gathering";
+              target = noTarget();
+              state = "Idle";
             }
           }
         }
@@ -75,9 +101,40 @@ class Unit extends Entity {
           else moveTowardsTarget();
         }
         else {
-          target = noTarget();
-          state = "Collecting";
+          if (seeBuildingUnderConstruction()) {
+            target = noTarget();
+            state = "Constructing";
+          } else {
+            target = noTarget();
+            state = "Collecting";
+          }
         }
+        break;
+        
+      case "Constructing":
+        if (!seeBuildingUnderConstruction()) {
+          state = "Idle";
+          return;
+        }
+        else {
+          if (hasNoTarget()) {
+            target = serlectNewUnderConstruction(civ.underConstruction);
+          }
+          else {
+            println("has a target");
+            if (distance(target, this) < 20) {
+              BuildingUnderConstruction building = findBuildingAtTarget(civ.underConstruction);
+              if (building != null) {
+                building.build();
+              }
+            }
+            else {
+              moveTowardsTarget();
+            }
+          }
+          
+        }
+        
         break;
         
       default:
@@ -86,10 +143,56 @@ class Unit extends Entity {
     }
   }
   
+  Building getTargetBuilding(List<Building> buildings) {
+    for (Building b : buildings)
+      if (new Coord(b.x, b.y).equals(target))
+        return b;
+    return null;
+  }
+  
+  boolean canSeeStash() {
+    for (Stash s : world.resources)
+      if (isInRange(s))
+        return true;
+    return false;
+  }
+  
+  boolean seeBuildingUnderConstruction() {
+    for (BuildingUnderConstruction b : civ.underConstruction)
+      if (isInRange(b))
+        return true;
+    return false;
+  }
+  
+  boolean isInRange(Entity a) {
+    return distance(this, a) < range;
+  }
+  
   Coord selectRandomTarget(int x, int y) {
     int nx = randomBetweenBounds(x - 200, x + 200);
     int ny = randomBetweenBounds(y - 200, y + 200);
     return new Coord(nx, ny);
+  }
+  
+  Coord selectBuilding(List<Building> buildings) {
+    for (Building building : buildings)
+      if (isInRange(building))
+        return new Coord(building.x, building.y);
+    return null;
+  }
+  
+  BuildingUnderConstruction findBuildingAtTarget(List<BuildingUnderConstruction> buildings) {
+    for (BuildingUnderConstruction b : buildings)
+      if (target.equals(new Coord(b.x, b.y)))
+        return b;
+    return null;
+  }
+  
+  Coord serlectNewUnderConstruction(List<BuildingUnderConstruction> buildings) {
+    for (BuildingUnderConstruction building : buildings)
+      if (isInRange(building))
+        return new Coord(building.x, building.y);
+    return null;
   }
   
   Coord selectNewStash(List<Stash> resources) {

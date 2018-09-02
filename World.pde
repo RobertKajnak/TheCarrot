@@ -14,6 +14,8 @@ class World {
         reqAssets.add("grass");
         reqAssets.add("peon");
         reqAssets.add("bush");
+        reqAssets.add("wood");
+        reqAssets.add("iron");
       
         civs.add(new Civilization());
       
@@ -30,7 +32,7 @@ class World {
         // Initializations
         civs.get(0).add(new Unit("peon",width/2,height/2, this, civs.get(0)));
         civs.get(0).add(new Unit("peon",0,0, this, civs.get(0)));
-        civs.get(0).add(new Building(200, 200, "Building"));
+        civs.get(0).add(new BuildingUnderConstruction(200, 200, "Building"));
         
         //resources.add(new Stash(500, 300, "bush", new Food(50)));
 

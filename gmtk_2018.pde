@@ -204,20 +204,20 @@ void mouseReleased(){
      Resource resToAdd;
      switch (activeBushType){
        case "bush":
-       resToAdd = new Food(5);
-       break;
+         resToAdd = new Food(5);
+         break;
        case "wood":
-       resToAdd = new Wood(5);
-       break;
+         resToAdd = new Wood(5);
+         break;
        case "iron":
-       resToAdd = new Iron(5);
-       break;
+         resToAdd = new Iron(5);
+         break;
        case "nuclear":
-       resToAdd = new Nuclear(5);
-       break;
+         resToAdd = new Nuclear(5);
+         break;
        default:
-       resToAdd = null;
-       break;
+         resToAdd = null;
+         break;
      }
      if (resToAdd!=null){
          world.resources.add(
