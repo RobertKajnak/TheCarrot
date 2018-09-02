@@ -23,13 +23,29 @@ abstract class Entity{
   void renderImage(String suffix){
     PImage img = assets.get(name +suffix+ "_z" + zoomLevel);
      if (img==null) img = imagePlaceholder;
-          
-     if (isVisible(x, y, img.width, img.height))
-       image (
-         img, 
-         worldCoordToScreenCoord(x, cameraX), 
-         worldCoordToScreenCoord(y, cameraY)
-       );
+                
+     if (isVisible(x, y, img.width, img.height)) {
+       
+       int nx = worldCoordToScreenCoord(x, cameraX); 
+       int ny = worldCoordToScreenCoord(y, cameraY);
+       
+       image(img, nx, ny);
+       
+       int start = nx - 30;
+       int end = nx + 30; 
+       int length = end - start;
+    
+       if (hitPoints < 100) {
+         strokeWeight(4);
+         stroke(255, 0, 0);
+         line(start, ny - 50, end, ny - 50);
+    
+         stroke(0, 255, 0);
+         float hp = map(hitPoints, 0, 100, 0, length);
+         line(start, ny - 50, start + hp, ny - 50);
+         strokeWeight(1);
+    }
+     }
   }
   
   int buffer = 0;
