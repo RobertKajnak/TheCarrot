@@ -6,7 +6,7 @@ Random RNG;
 /// --- Camera values relative to the global map
 int cameraX,cameraY; //top left corner
 int cameraMinX, cameraMaxX, cameraMinY, cameraMaxY;
-int zoomLevel = 1, zoomLimit = 3;
+int zoomLevel = 1, zoomLimit = 4;
 double widthForZoomLevel,heightForZoomLevel;
 double cameraMoveSpeed = 10;
 int mapXMin, mapXMax, mapYMin,mapYMax;
@@ -239,11 +239,18 @@ void mouseReleased(){
      )
    ) {
      Resource resToAdd;
+     println(activeBushType);
      switch (activeBushType){
        case "bush":
          resToAdd = spendOnResource(new Food(50), 30);
          break;
-       case "wood":
+       case "wood_1":
+         resToAdd = spendOnResource(new Wood(50), 50);
+         break;
+       case "wood_2":
+         resToAdd = spendOnResource(new Wood(50), 50);
+         break;
+       case "wood_3":
          resToAdd = spendOnResource(new Wood(50), 50);
          break;
        case "iron":

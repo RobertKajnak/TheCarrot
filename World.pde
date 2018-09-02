@@ -23,7 +23,6 @@ class World {
         reqAssets.add("peasant_walk");
         reqAssets.add("peasant_walk_left");
         
-        
         reqAssets.add("soldier");
         reqAssets.add("soldier_left");
         reqAssets.add("soldier_walk");
@@ -35,7 +34,9 @@ class World {
         reqAssets.add("militant_walk_left");
         
         reqAssets.add("bush");
-        reqAssets.add("wood");
+        reqAssets.add("wood_1");
+        reqAssets.add("wood_2");
+        reqAssets.add("wood_3");
         reqAssets.add("iron");
         
         reqAssets.add("building");

@@ -82,7 +82,11 @@ void buildHUD(){
   dispwood = new Wood(0);
   mainHUD.add(new InterfaceText(mainHUD,200,105,new Wood(50),color(255,0,0)));
   mainHUD.add(new InterfaceText(mainHUD,200,30,dispwood,0));
-  mainHUD.add(new Button(mainHUD,200,70,"tree",new Runnable(){public void run(){activeBushType = "wood";};}));
+  mainHUD.add(new Button(mainHUD,200,70,"tree",new Runnable(){public void run(){
+    int x = randomBetweenBounds(1, 4);
+    
+    activeBushType = "wood_" + x;
+  };}));
   
   dispiron = new  Iron(0);
   mainHUD.add(new InterfaceText(mainHUD,300,105,new Iron(90),color(255,0,0)));
@@ -105,7 +109,7 @@ void buildHUD(){
     dispfervour.amount -= 500;
 };}));
   
-  dispfervour = new  Fervour(0);
+  dispfervour = new  Fervour(500);
   mainHUD.add(new InterfaceText(mainHUD,500,30,dispfervour,0));
   mainHUD.add(new Button(mainHUD,500,70,"fervour",new Runnable(){public void run(){activeBushType = "";};}));
   HUDs.add(mainHUD);
