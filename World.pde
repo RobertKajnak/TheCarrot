@@ -13,9 +13,13 @@ class World {
       case "start":
         reqAssets.add("grass");
         reqAssets.add("peon");
-        reqAssets.add("soldier");
-        reqAssets.add("soldier_walk");
+        reqAssets.add("peon_left");
         reqAssets.add("peon_walk");
+        reqAssets.add("peon_walk_left");
+        reqAssets.add("soldier");
+        reqAssets.add("soldier_left");
+        reqAssets.add("soldier_walk");
+        reqAssets.add("soldier_walk_left");
         reqAssets.add("bush");
         reqAssets.add("wood");
         reqAssets.add("iron");
