@@ -15,7 +15,8 @@ double cameraMoveSpeed = 10;
 int margin = 30;
 /// --- HUD
 ///Starting point of the interface
-HUD mainHUD;
+List<HUD> HUDs;
+Wood dispwood; Food dispfood; Iron dispiron; Nuclear dispnuclear; Fervour dispfervour;
 int R=80,G=230,B=80;
 
 PImage[] cursorImgs;
@@ -41,12 +42,44 @@ void setup() {
   textAlign(CENTER,CENTER);
   textSize(16);
   
-  Runnable RRR = new Runnable(){public void run(){R=255-R;G=255-G;B=255-B;};};
-//  RRR.run();
-  mainHUD = new HUD(null,width/2,height - height /5/2,width*3/4,height/5);
-  mainHUD.add(new Button(mainHUD,50,50,"Tech Tree",RRR));
+  buildHUD();
+  
 } 
 
+void buildHUD(){
+  String [] reqAssets = {"tree","rock","meat","nuclear","fervour"};
+  for (String ass : reqAssets) {
+      assets.put(ass,loadImage(resdir + ass + ".png"));
+      assets.put(ass+"_highlight",loadImage(resdir + ass + "_highlight.png"));
+  }
+  HUDs = new ArrayList<HUD>();
+  HUD mainHUD = new HUD(null,width/2,height - height /5/2,width*2/4,height/5);
+  
+  dispfood = new Food(0);
+  mainHUD.add(new InterfaceText(mainHUD,100,105,new Food(30),color(255,0,0)));
+  mainHUD.add(new InterfaceText(mainHUD,100,30,dispfood,0));
+  mainHUD.add(new Button(mainHUD,100,70,"meat",new Runnable(){public void run(){R=255-R;G=255-G;B=255-B;};}));
+  
+  dispwood = new Wood(0);
+  mainHUD.add(new InterfaceText(mainHUD,200,105,new Wood(50),color(255,0,0)));
+  mainHUD.add(new InterfaceText(mainHUD,200,30,dispwood,0));
+  mainHUD.add(new Button(mainHUD,200,70,"tree",new Runnable(){public void run(){R=255-R;G=255-G;B=255-B;};}));
+  
+  dispiron = new  Iron(0);
+  mainHUD.add(new InterfaceText(mainHUD,300,105,new Iron(90),color(255,0,0)));
+  mainHUD.add(new InterfaceText(mainHUD,300,30,dispiron,0));
+  mainHUD.add(new Button(mainHUD,300,70,"rock",new Runnable(){public void run(){R=255-R;G=255-G;B=255-B;};}));
+  
+  dispnuclear = new  Nuclear(0);
+  mainHUD.add(new InterfaceText(mainHUD,400,105,new Nuclear(500),color(255,0,0)));
+  mainHUD.add(new InterfaceText(mainHUD,400,30,dispnuclear,0));
+  mainHUD.add(new Button(mainHUD,400,70,"nuclear",new Runnable(){public void run(){R=255-R;G=255-G;B=255-B;};}));
+  
+  dispfervour = new  Fervour(0);
+  mainHUD.add(new InterfaceText(mainHUD,500,30,dispfervour,0));
+  mainHUD.add(new Button(mainHUD,500,70,"fervour",new Runnable(){public void run(){R=255-R;G=255-G;B=255-B;};}));
+  HUDs.add(mainHUD);
+}
 
 void loadCursorImages() {
   cursorImgs =new PImage[9];
@@ -62,6 +95,7 @@ int offY = 0;
 int dir = 0;
 
 void draw () {
+  dispfervour.amount ++;
   background(R,G,B);
   
   dir = 
@@ -86,7 +120,10 @@ void draw () {
   world.update();
   world.render();
   
-  mainHUD.render();
+  for (HUD hud : HUDs){
+    hud.render();
+  }
+  
 }
 
 void mouseMoved() {
@@ -156,5 +193,7 @@ void mouseWheel (MouseEvent event){
 }
 
 void mouseClicked(){
-   mainHUD.click(); 
+   for (HUD hud : HUDs){
+     hud.click();
+   }
 }

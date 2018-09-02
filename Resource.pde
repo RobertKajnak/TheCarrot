@@ -21,3 +21,15 @@ class Iron extends Resource {
   public Iron(int amount) { this.amount = amount; }
   Resource withAmount(int amount) { return new Iron(amount); }
 }
+
+class Nuclear extends Resource { 
+  String getName() { return "Nuclear"; }
+  public Nuclear(int amount) { this.amount = amount; }
+  Resource withAmount(int amount) { return new Nuclear(amount); }
+}
+
+class Fervour extends Resource { 
+  String getName() { return "Fervour"; }
+  public Fervour(int amount) { this.amount = amount; }
+  Resource withAmount(int amount) { return new Fervour(amount); }
+}
