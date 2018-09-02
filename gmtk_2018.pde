@@ -9,6 +9,7 @@ int cameraMinX, cameraMaxX, cameraMinY, cameraMaxY;
 int zoomLevel = 1, zoomLimit = 16;
 double widthForZoomLevel,heightForZoomLevel;
 double cameraMoveSpeed = 10;
+int mapXMin, mapXMax, mapYMin,mapYMax;
 
 /// --- camera values relative to the display window
 /// margin at which the camera is moved relative to the map and the cursor is changed
@@ -26,6 +27,12 @@ World world;
 
 void setup() {
   size(1280,720);
+  
+  mapXMin = 0;
+  mapXMax = 100000;
+  mapYMin = 0;
+  mapYMax = 100000;
+  
   
   imagePlaceholder = loadImage(resdir + "placeholder.png");
   loadCursorImages();
@@ -106,8 +113,13 @@ void draw () {
     cursor(cursorImgs[dir],0,0);
     dirPrev = dir;     
   }
+  
   cameraX += cameraMoveSpeed * (1+zoomLevel/2) * new int[]{0,0,1,1,1,0,-1,-1,-1}[dir];
   cameraY += cameraMoveSpeed * (1+zoomLevel/2) * new int[]{0,-1,-1,0,1,1,1,0,-1}[dir];
+  cameraX = max(mapXMin,cameraX);
+  cameraX = min(mapXMax,cameraX);
+  cameraY = max(mapYMin,cameraY);
+  cameraY = min(mapYMax,cameraY);
     
   int w = (int)(zoomLevel*widthForZoomLevel);
   int h = (int)(zoomLevel*heightForZoomLevel);
@@ -187,7 +199,7 @@ void mouseWheel (MouseEvent event){
      }
    }
    //println(cameraMaxX);
-   //println(zoomLevel);
+   println(zoomLevel * widthForZoomLevel);
    //println(cameraX);
    //println(cameraX + zoomLevel* widthForZoomLevel/2);
 }
