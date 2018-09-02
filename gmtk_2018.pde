@@ -24,6 +24,7 @@ PImage[] cursorImgs;
 
 Map<String,PImage> assets;
 World world;
+String activeBushType = "";
 
 void setup() {
   size(1280,720);
@@ -65,26 +66,26 @@ void buildHUD(){
   dispfood = new Food(0);
   mainHUD.add(new InterfaceText(mainHUD,100,105,new Food(30),color(255,0,0)));
   mainHUD.add(new InterfaceText(mainHUD,100,30,dispfood,0));
-  mainHUD.add(new Button(mainHUD,100,70,"meat",new Runnable(){public void run(){R=255-R;G=255-G;B=255-B;};}));
+  mainHUD.add(new Button(mainHUD,100,70,"meat",new Runnable(){public void run(){activeBushType = "bush";};}));
   
   dispwood = new Wood(0);
   mainHUD.add(new InterfaceText(mainHUD,200,105,new Wood(50),color(255,0,0)));
   mainHUD.add(new InterfaceText(mainHUD,200,30,dispwood,0));
-  mainHUD.add(new Button(mainHUD,200,70,"tree",new Runnable(){public void run(){R=255-R;G=255-G;B=255-B;};}));
+  mainHUD.add(new Button(mainHUD,200,70,"tree",new Runnable(){public void run(){activeBushType = "wood";};}));
   
   dispiron = new  Iron(0);
   mainHUD.add(new InterfaceText(mainHUD,300,105,new Iron(90),color(255,0,0)));
   mainHUD.add(new InterfaceText(mainHUD,300,30,dispiron,0));
-  mainHUD.add(new Button(mainHUD,300,70,"rock",new Runnable(){public void run(){R=255-R;G=255-G;B=255-B;};}));
+  mainHUD.add(new Button(mainHUD,300,70,"rock",new Runnable(){public void run(){activeBushType = "iron";};}));
   
   dispnuclear = new  Nuclear(0);
   mainHUD.add(new InterfaceText(mainHUD,400,105,new Nuclear(500),color(255,0,0)));
   mainHUD.add(new InterfaceText(mainHUD,400,30,dispnuclear,0));
-  mainHUD.add(new Button(mainHUD,400,70,"nuclear",new Runnable(){public void run(){R=255-R;G=255-G;B=255-B;};}));
+  mainHUD.add(new Button(mainHUD,400,70,"nuclear",new Runnable(){public void run(){activeBushType = "nuclear";};}));
   
   dispfervour = new  Fervour(0);
   mainHUD.add(new InterfaceText(mainHUD,500,30,dispfervour,0));
-  mainHUD.add(new Button(mainHUD,500,70,"fervour",new Runnable(){public void run(){R=255-R;G=255-G;B=255-B;};}));
+  mainHUD.add(new Button(mainHUD,500,70,"fervour",new Runnable(){public void run(){activeBushType = "";};}));
   HUDs.add(mainHUD);
 }
 
@@ -166,17 +167,6 @@ void mouseMoved() {
   }
 }
 
-void mousePressed() {
-  world.resources.add(
-    new Stash(
-      screenCoordToWorldCoord(mouseX, cameraX), 
-      screenCoordToWorldCoord(mouseY, cameraY), 
-      "bush", 
-      new Food(5)
-    )
-  );
-}
-
 void mouseWheel (MouseEvent event){
  //float c = event.getCount();
  //println(c);
@@ -204,8 +194,40 @@ void mouseWheel (MouseEvent event){
    //println(cameraX + zoomLevel* widthForZoomLevel/2);
 }
 
-void mouseClicked(){
+void mouseReleased(){
+  boolean anyclicked = false;
    for (HUD hud : HUDs){
-     hud.click();
+     anyclicked |= hud.click();
+   }
+   if (!anyclicked)
+   {
+     Resource resToAdd;
+     switch (activeBushType){
+       case "bush":
+       resToAdd = new Food(5);
+       break;
+       case "wood":
+       resToAdd = new Wood(5);
+       break;
+       case "iron":
+       resToAdd = new Iron(5);
+       break;
+       case "nuclear":
+       resToAdd = new Nuclear(5);
+       break;
+       default:
+       resToAdd = null;
+       break;
+     }
+     if (resToAdd!=null){
+         world.resources.add(
+          new Stash(
+            screenCoordToWorldCoord(mouseX, cameraX), 
+            screenCoordToWorldCoord(mouseY, cameraY), 
+            activeBushType, 
+            resToAdd
+          )
+        );
+     }
    }
 }

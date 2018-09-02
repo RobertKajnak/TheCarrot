@@ -42,9 +42,11 @@ class HUD{
     }
   }
   
-  public void click(){
+  public boolean click(){
+    boolean anyclicked = false;
     for (Button button : buttons){
-       button.click(); 
+       anyclicked |= button.click(); 
     }
+    return anyclicked;
   }
 }

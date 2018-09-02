@@ -57,10 +57,12 @@ abstract class InterfaceItem{
     }
   }
   
-  public void click(){
-    if (function!=null && insideRect(mouseX,mouseY, X, Y, img.width,img.height))
-       function.run();
-    
+  public boolean click(){
+    if (function!=null && insideRect(mouseX,mouseY, X, Y, img.width,img.height)){
+      function.run();
+      return true;
+    }
+    return false;
   }
   
 }
