@@ -1,6 +1,13 @@
 import java.util.Random;
 
-class Unit extends Entity {
+abstract class Unit extends Entity {
+  
+  public Unit(int x, int y, String name) {
+    super(name, x, y);
+  }
+}
+
+class Worker extends Unit {
   
   World world;
   Civilization civ;
@@ -15,8 +22,8 @@ class Unit extends Entity {
   
   String state = "Idle";
   
-  public Unit(String name, int x, int y, World world, Civilization civ) {
-    super(name,x,y);
+  public Worker(String name, int x, int y, World world, Civilization civ) {
+    super(x, y, name);
     this.world = world;
     this.civ = civ;
   }

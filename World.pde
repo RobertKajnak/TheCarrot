@@ -31,8 +31,8 @@ class World {
         }
 
         // Initializations
-        civs.get(0).add(new Unit("peon",width/2,height/2, this, civs.get(0)));
-        civs.get(0).add(new Unit("peon",0,0, this, civs.get(0)));
+        civs.get(0).add(new Worker("peon",width/2,height/2, this, civs.get(0)));
+        civs.get(0).add(new Worker("peon",0,0, this, civs.get(0)));
         civs.get(0).add(new BuildingUnderConstruction(200, 200, "building"));
         
         //resources.add(new Stash(500, 300, "bush", new Food(50)));
