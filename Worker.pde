@@ -4,7 +4,7 @@ class Worker extends Unit {
   Inventory inventory = new Inventory();
   
   public Worker(int x, int y, World world, Civilization civ) {
-    super(x, y, "peon", world, civ);
+    super(x, y, civ.unitName, world, civ);
     this.world = world;
     this.civ = civ;
   }

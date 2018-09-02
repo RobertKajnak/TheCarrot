@@ -12,14 +12,28 @@ class World {
     switch (level) {
       case "start":
         reqAssets.add("grass");
+        
         reqAssets.add("peon");
         reqAssets.add("peon_left");
         reqAssets.add("peon_walk");
         reqAssets.add("peon_walk_left");
+        
+        reqAssets.add("peasant");
+        reqAssets.add("peasant_left");
+        reqAssets.add("peasant_walk");
+        reqAssets.add("peasant_walk_left");
+        
+        
         reqAssets.add("soldier");
         reqAssets.add("soldier_left");
         reqAssets.add("soldier_walk");
         reqAssets.add("soldier_walk_left");
+        
+        reqAssets.add("militant");
+        reqAssets.add("militant_left");
+        reqAssets.add("militant_walk");
+        reqAssets.add("militant_walk_left");
+        
         reqAssets.add("bush");
         reqAssets.add("wood");
         reqAssets.add("iron");
@@ -45,14 +59,14 @@ class World {
         
         
         // Initializations
-        Civilization moustache = new Civilization("Moustache", color(255, 0, 0), "building", "construction_0", "construction_1");
+        Civilization moustache = new Civilization("Moustache", color(255, 0, 0), "building", "construction_0", "construction_1", "peon", "soldier");
         civs.add(moustache);
         moustache.add(new Worker(width/2,height/2, this, moustache));
         moustache.add(new Worker(0,0, this, moustache));
         moustache.add(new BuildingUnderConstruction(200, 200, moustache));
         moustache.add(new Soldier(500, 500, this, moustache));
         
-        Civilization randors = new Civilization("Randors", color(0, 0, 255), "building_2", "construction_2_0", "construction_2_1");
+        Civilization randors = new Civilization("Randors", color(0, 0, 255), "building_2", "construction_2_0", "construction_2_1", "peasant", "militant");
         civs.add(randors);
         randors.add(new Worker(width, height, this, randors));
         randors.add(new BuildingUnderConstruction(width, height, randors));

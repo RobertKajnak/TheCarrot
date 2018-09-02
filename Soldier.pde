@@ -3,7 +3,7 @@ class Soldier extends Unit {
   Entity enemyTarget = null;
   
   public Soldier(int x, int y, World world, Civilization civ) {
-    super(x, y, "soldier", world, civ);
+    super(x, y, civ.soldierName, world, civ);
   }
   
   void update() {
