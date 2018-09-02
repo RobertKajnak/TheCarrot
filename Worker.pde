@@ -155,10 +155,17 @@ class Worker extends Unit {
   }
   
   Coord selectBuilding(List<Building> buildings) {
-    for (Building building : buildings)
-      if (isInRange(building))
-        return new Coord(building.x, building.y);
-    return null;
+    Coord best = null;
+    float bestDistance = 9999999;
+    
+    for (Building building : buildings) { 
+      float dist = distance(building, this);
+      if (dist < range && dist < bestDistance) {
+        bestDistance = dist;
+        best = new Coord(building.x, building.y);
+      }
+    }
+    return best;
   }
   
   BuildingUnderConstruction findBuildingAtTarget(List<BuildingUnderConstruction> buildings) {
@@ -176,10 +183,17 @@ class Worker extends Unit {
   }
   
   Coord selectNewStash(List<Stash> resources) {
-    for (Stash resource : resources) 
-      if (distance(resource, this) < range) 
-        return new Coord(resource.x, resource.y);
-    return null;
+    Coord best = null;
+    float bestDistance = 9999999;
+    
+    for (Stash resource : resources) { 
+      float dist = distance(resource, this);
+      if (dist < range && dist < bestDistance) {
+        bestDistance = dist;
+        best = new Coord(resource.x, resource.y);
+      }
+    }
+    return best;
   }
   
   boolean canNotSeeBuildings(List<Building> buildings) {
