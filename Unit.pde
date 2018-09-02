@@ -85,7 +85,7 @@ abstract class Unit extends Entity {
       fill(255, 255, 0, 0.5);
       ellipse(nx, ny, range * 2 / zoomLevel, range * 2 / zoomLevel);
       
-      fill(255, 0, 0);
+      fill(civ.colour);
       ellipse(nx, ny, 20, 20);
    
       fill(255);

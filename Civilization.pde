@@ -1,14 +1,20 @@
 import java.util.List;
 
-public class Civilization{
+public class Civilization {
+  
   String name;
+  int colour;
+  
   List<Unit> units = new ArrayList<Unit>();
   List<Building> buildings = new ArrayList<Building>();
   List<BuildingUnderConstruction> underConstruction = new ArrayList<BuildingUnderConstruction>();
   Inventory inventory = new Inventory();
   Techtree tech = new Techtree();
 
-  public Civilization() {}
+  public Civilization(String name, int colour) {
+    this.name = name;
+    this.colour = colour;
+  }
   
   public void add(Unit unit){
    units.add(unit); 

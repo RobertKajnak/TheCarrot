@@ -3,8 +3,11 @@ class BuildingUnderConstruction extends Entity {
   int finishedPercent = 0;
   float buffer = 0.0;
   
-  public BuildingUnderConstruction(int x, int y, String name) {
-    super(name, x, y);
+  Civilization civ;
+  
+  public BuildingUnderConstruction(int x, int y, Civilization civ) {
+    super("construction_0", x, y);
+    this.civ = civ;
   }
   
   void build() {
@@ -30,7 +33,7 @@ class BuildingUnderConstruction extends Entity {
       int nx = worldCoordToScreenCoord(x, cameraX);
       int ny = worldCoordToScreenCoord(y, cameraY);
      
-      fill(255, 0, 0);
+      fill(civ.colour);
       rect(nx, ny, 50, 50);
     
       fill(255);
@@ -86,7 +89,7 @@ class Building extends Entity {
   }
   
   void spawnBuilding(Coord goodPlace) {
-    civ.add(new BuildingUnderConstruction(goodPlace.x, goodPlace.y, "construction_0"));
+    civ.add(new BuildingUnderConstruction(goodPlace.x, goodPlace.y, civ));
   }
   
   Coord findPotentialPlace() {
@@ -110,7 +113,7 @@ class Building extends Entity {
       int nx = worldCoordToScreenCoord(x, cameraX);
       int ny = worldCoordToScreenCoord(y, cameraY);
      
-      fill(255, 0, 0);
+      fill(civ.colour);
       rect(nx, ny, 50, 50);
     
       fill(255);

@@ -46,7 +46,6 @@ public void render(){
     rect(x+scrX0,y+scrY0,scrX1-scrX0,scrY1-scrY0);
     
     for (Stash resource : world.resources){
-      println(resource.type.getName());
       switch(resource.type.getName()){
         case "Food":
           fill(color(237,30,30));
@@ -66,16 +65,16 @@ public void render(){
       }
       ellipse(x+mapx2mini(resource.x),y+mapy2mini(resource.y),r,r);
     }
+    
     for (Civilization civ : world.civs)
     {
-      fill(color(255,255,255));
+      fill(civ.colour);
       for (Building building : civ.buildings)
-        ellipse(x+mapx2mini(building.x),y+mapy2mini(building.y),r,r);
+        rect(x+mapx2mini(building.x),y+mapy2mini(building.y),r,r);
       
       for (BuildingUnderConstruction building : civ.underConstruction)
-        ellipse(x+mapx2mini(building.x),y+mapy2mini(building.y),r,r);
-
-      fill(color(0,215,255));
+        rect(x+mapx2mini(building.x),y+mapy2mini(building.y),r,r);
+        
       for (Unit unit : civ.units)
         ellipse(x+mapx2mini(unit.x),y+mapy2mini(unit.y),r,r);
     }
