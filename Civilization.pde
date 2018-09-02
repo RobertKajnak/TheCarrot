@@ -53,12 +53,10 @@ public class Civilization{
     for (Building building : buildings)
       building.render();
       
-    for (Unit unit : units)
-      unit.render();
-      
     for (BuildingUnderConstruction building : underConstruction)
       building.render();
+      
+    for (Unit unit : units)
+      unit.render();
   }
-  
-  
 }

@@ -17,6 +17,8 @@ class World {
         reqAssets.add("wood");
         reqAssets.add("iron");
         reqAssets.add("building");
+        reqAssets.add("construction_0");
+        reqAssets.add("construction_1");
       
         civs.add(new Civilization());
       
@@ -33,7 +35,7 @@ class World {
         // Initializations
         civs.get(0).add(new Worker("peon",width/2,height/2, this, civs.get(0)));
         civs.get(0).add(new Worker("peon",0,0, this, civs.get(0)));
-        civs.get(0).add(new BuildingUnderConstruction(200, 200, "building"));
+        civs.get(0).add(new BuildingUnderConstruction(200, 200, "construction_0"));
         
         //resources.add(new Stash(500, 300, "bush", new Food(50)));
 

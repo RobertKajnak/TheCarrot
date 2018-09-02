@@ -50,6 +50,7 @@ class Worker extends Unit {
       
       case "Gathering":
         if (seeBuildingUnderConstruction()) {
+          target = noTarget();
           state = "Constructing";
           return;
         }

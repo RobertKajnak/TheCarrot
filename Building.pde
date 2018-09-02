@@ -1,18 +1,30 @@
 class BuildingUnderConstruction extends Entity {
   
   int finishedPercent = 0;
+  float buffer = 0.0;
   
   public BuildingUnderConstruction(int x, int y, String name) {
     super(name, x, y);
   }
   
   void build() {
-    finishedPercent++;
+    buffer += 0.1;
+    if (buffer > 1) {
+      buffer = 0;
+      finishedPercent++;
+      
+      if (finishedPercent >= 50) 
+        name = "construction_1";
+      if (finishedPercent >= 100)
+        name = "building";
+    }
   }
   
   void update() {}
   
   void render() {
+    renderImage();
+    
     if (isVisible(x, y, 20, 20) && debugView) {
       
       int nx = worldCoordToScreenCoord(x, cameraX);
@@ -62,7 +74,7 @@ class Building extends Entity {
   }
   
   void spawnBuilding(Coord goodPlace) {
-    civ.add(new BuildingUnderConstruction(goodPlace.x, goodPlace.y, name));
+    civ.add(new BuildingUnderConstruction(goodPlace.x, goodPlace.y, "construction_0"));
   }
   
   Coord findPotentialPlace() {
