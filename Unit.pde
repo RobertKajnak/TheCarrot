@@ -16,7 +16,8 @@ class Worker extends Unit {
   int range = 500;
   int extractingAmount = 10;
   Inventory inventory = new Inventory();
-  
+  int framesShown = 0, frameSwitch = 30, frameIndex = 0;
+  int prevX=x, prevY=y;
   
   Coord target = null;
   
@@ -251,7 +252,26 @@ class Worker extends Unit {
   }
  
   void render() {
-    renderImage();
+    framesShown ++;
+    if (framesShown > frameSwitch){
+        framesShown = 0;
+        if (x!=prevX || y!=prevY){
+          frameIndex = frameIndex == 1?0:1;
+        }
+        else{
+          frameIndex = 0; 
+        }
+     }
+     
+    prevX = x;
+    prevY = y;
+    
+     if (frameIndex ==0){
+        renderImage();
+      }
+      else{
+        renderImage("_walk");
+      }
     
     int nx = worldCoordToScreenCoord(x, cameraX);
     int ny = worldCoordToScreenCoord(y, cameraY);

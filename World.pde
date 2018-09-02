@@ -13,6 +13,7 @@ class World {
       case "start":
         reqAssets.add("grass");
         reqAssets.add("peon");
+        reqAssets.add("peon_walk");
         reqAssets.add("bush");
         reqAssets.add("wood");
         reqAssets.add("iron");

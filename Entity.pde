@@ -15,7 +15,11 @@ abstract class Entity{
   abstract void render();
   
   void renderImage(){
-     PImage img = assets.get(name + "_z" + zoomLevel);
+    renderImage("");
+  }
+  
+  void renderImage(String suffix){
+    PImage img = assets.get(name +suffix+ "_z" + zoomLevel);
      if (img==null) img = imagePlaceholder;
           
      if (isVisible(x, y, img.width, img.height))
