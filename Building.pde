@@ -75,14 +75,14 @@ class Building extends Entity {
     int nx = randomBetweenBounds(x - 20, x + 20);
     int ny = randomBetweenBounds(y - 20, y + 20);
     
-    civ.add(new Worker("peon", nx, ny, world, civ));
+    civ.add(new Worker(nx, ny, world, civ));
   }
   
   void spawnSoldier() {
     int nx = randomBetweenBounds(x - 20, x + 20);
     int ny = randomBetweenBounds(y - 20, y + 20);
     
-    civ.add(new Soldier("soldier_stand", nx, ny, world, civ));
+    civ.add(new Soldier(nx, ny, world, civ));
   }
   
   void spawnBuilding(Coord goodPlace) {

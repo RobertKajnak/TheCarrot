@@ -8,6 +8,10 @@ abstract class Unit extends Entity {
   World world;
   Civilization civ;
   
+  int framesShown = 0, frameSwitch = 30, frameIndex = 0;
+  int prevX = x; 
+  int prevY = y;
+  
   String state = "Idle";
   
   public Unit(int x, int y, String name, World world, Civilization civ) {
@@ -15,26 +19,28 @@ abstract class Unit extends Entity {
     this.world = world;
     this.civ = civ;
   }
-}
-
-class Soldier extends Unit {
-  
-  public Soldier(String name, int x, int y, World world, Civilization civ) {
-    super(x, y, name, world, civ);
-  }
-  
-  void update() {
-    switch(state) {
-      case "Idle":
-        break;
-      default:
-        state = "Idle";
-        break;
-    }
-  }
   
   void render() {
-    renderImage();
+    framesShown ++;
+    if (framesShown > frameSwitch){
+        framesShown = 0;
+        if (x!=prevX || y!=prevY){
+          frameIndex = frameIndex == 1?0:1;
+        }
+        else{
+          frameIndex = 0; 
+        }
+     }
+     
+    prevX = x;
+    prevY = y;
+    
+     if (frameIndex ==0){
+        renderImage();
+      }
+      else{
+        renderImage("_walk");
+      }
     
     int nx = worldCoordToScreenCoord(x, cameraX);
     int ny = worldCoordToScreenCoord(y, cameraY);
@@ -58,16 +64,32 @@ class Soldier extends Unit {
   }
 }
 
+class Soldier extends Unit {
+  
+  public Soldier(int x, int y, World world, Civilization civ) {
+    super(x, y, "soldier", world, civ);
+  }
+  
+  void update() {
+    switch(state) {
+      case "Idle":
+        break;
+      default:
+        state = "Idle";
+        break;
+    }
+  }
+}
+
 class Worker extends Unit {
   
   int extractingAmount = 10;
   Inventory inventory = new Inventory();
   
-  
   Coord target = null;
   
-  public Worker(String name, int x, int y, World world, Civilization civ) {
-    super(x, y, name, world, civ);
+  public Worker(int x, int y, World world, Civilization civ) {
+    super(x, y, "peon", world, civ);
     this.world = world;
     this.civ = civ;
   }
@@ -294,29 +316,5 @@ class Worker extends Unit {
         return s;
     println("You should never see this message from getTargetStash!");
     return null;
-  }
- 
-  void render() {
-    renderImage();
-    
-    int nx = worldCoordToScreenCoord(x, cameraX);
-    int ny = worldCoordToScreenCoord(y, cameraY);
-    
-    noStroke();
-    fill(255, 255, 255, 50);
-    ellipse(nx, ny, range * 2 / zoomLevel, range * 2 / zoomLevel);
-    stroke(0);
-  
-    if (isVisible(x, y, 20, 20) && debugView) {
-      
-      fill(255, 255, 0, 0.5);
-      ellipse(nx, ny, range * 2 / zoomLevel, range * 2 / zoomLevel);
-      
-      fill(255, 0, 0);
-      ellipse(nx, ny, 20, 20);
-   
-      fill(255);
-      text(state + " - " + target, nx, ny);
-    }
   }
 }

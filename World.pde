@@ -13,8 +13,9 @@ class World {
       case "start":
         reqAssets.add("grass");
         reqAssets.add("peon");
-        reqAssets.add("soldier_stand");
+        reqAssets.add("soldier");
         reqAssets.add("soldier_walk");
+        reqAssets.add("peon_walk");
         reqAssets.add("bush");
         reqAssets.add("wood");
         reqAssets.add("iron");
@@ -35,11 +36,11 @@ class World {
         }
 
         // Initializations
-        civs.get(0).add(new Worker("peon",width/2,height/2, this, civs.get(0)));
-        civs.get(0).add(new Worker("peon",0,0, this, civs.get(0)));
+        civs.get(0).add(new Worker(width/2,height/2, this, civs.get(0)));
+        civs.get(0).add(new Worker(0,0, this, civs.get(0)));
         civs.get(0).add(new BuildingUnderConstruction(200, 200, "construction_0"));
         
-        civs.get(0).add(new Soldier("soldier_stand", 500, 500, this, civs.get(0)));
+        civs.get(0).add(new Soldier(500, 500, this, civs.get(0)));
         
         //resources.add(new Stash(500, 300, "bush", new Food(50)));
 
