@@ -11,6 +11,9 @@ double widthForZoomLevel,heightForZoomLevel;
 double cameraMoveSpeed = 10;
 int mapXMin, mapXMax, mapYMin,mapYMax;
 
+/// --- Minimap
+Minimap minimap;
+
 /// --- camera values relative to the display window
 /// margin at which the camera is moved relative to the map and the cursor is changed
 int margin = 30;
@@ -37,9 +40,9 @@ void setup() {
   size(1280,720);
   
   mapXMin = -10000;
-  mapXMax = 100000;
+  mapXMax = 50000;
   mapYMin = -10000;
-  mapYMax = 100000;
+  mapYMax = 50000;
   
   
   imagePlaceholder = loadImage(resdir + "placeholder.png");
@@ -57,6 +60,8 @@ void setup() {
   textAlign(CENTER,CENTER);
   textSize(16);
   
+  
+  minimap = new Minimap(width-300,height-200,180,180,world);
   buildHUD();
   
 } 
@@ -89,9 +94,9 @@ void draw () {
   cameraX += cameraMoveSpeed * (1+zoomLevel/2) * new int[]{0,0,1,1,1,0,-1,-1,-1}[dir];
   cameraY += cameraMoveSpeed * (1+zoomLevel/2) * new int[]{0,-1,-1,0,1,1,1,0,-1}[dir];
   cameraX = max(mapXMin,cameraX);
-  cameraX = min(mapXMax,cameraX);
+  cameraX = min(mapXMax - (int)(zoomLevel*widthForZoomLevel),cameraX);
   cameraY = max(mapYMin,cameraY);
-  cameraY = min(mapYMax,cameraY);
+  cameraY = min(mapYMax - (int)(zoomLevel*heightForZoomLevel),cameraY);
     
   int w = (int)(zoomLevel*widthForZoomLevel);
   int h = (int)(zoomLevel*heightForZoomLevel);
@@ -110,6 +115,7 @@ void draw () {
     hud.render();
   }
   
+  minimap.render();
 }
 
 void keyPressed() {
@@ -179,7 +185,13 @@ void mouseReleased(){
    for (HUD hud : HUDs){
      anyclicked |= hud.click();
    }
-   if (!anyclicked)
+   PVector minimapV = minimap.click();
+   if (minimapV!=null){
+     anyclicked = true;
+     cameraX = (int)minimapV.x;
+     cameraY = (int)minimapV.y;
+   }
+   if (!anyclicked && insideRect(screenCoordToWorldCoord(mouseX, cameraX),screenCoordToWorldCoord(mouseY, cameraY), mapXMin, mapYMin, (mapXMax-mapXMin)*2,(mapYMax-mapYMin)*2 ))
    {
      Resource resToAdd;
      switch (activeBushType){
