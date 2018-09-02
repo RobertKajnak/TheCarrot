@@ -13,7 +13,7 @@ class BuildingUnderConstruction extends Entity {
   void update() {}
   
   void render() {
-    if (isVisible(x, y, 20, 20)) {
+    if (isVisible(x, y, 20, 20) && debugView) {
       
       int nx = worldCoordToScreenCoord(x, cameraX);
       int ny = worldCoordToScreenCoord(y, cameraY);
@@ -79,7 +79,9 @@ class Building extends Entity {
   }
   
   void render() {
-    if (isVisible(x, y, 20, 20)) {
+    renderImage();
+    
+    if (isVisible(x, y, 20, 20) && debugView) {
       
       int nx = worldCoordToScreenCoord(x, cameraX);
       int ny = worldCoordToScreenCoord(y, cameraY);

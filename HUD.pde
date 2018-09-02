@@ -22,7 +22,7 @@ class HUD{
     
     buttons = new ArrayList<Button>();
     texts = new ArrayList<InterfaceText>();
-    }
+  }
   
   public void add(Button button){
     buttons.add(button);  
@@ -30,6 +30,10 @@ class HUD{
   
   public void add(InterfaceText text){
      texts.add(text); 
+  }
+  
+  public void update() {
+    
   }
   
   public void render(){
@@ -49,4 +53,49 @@ class HUD{
     }
     return anyclicked;
   }
+}
+
+float buffer = 0.0;
+
+void updateFervour() {
+  buffer += 0.1;
+    if (buffer >= 1) {
+      buffer = 0;
+      dispfervour.amount ++;
+    }
+}
+
+void buildHUD(){
+  String [] reqAssets = {"tree","rock","meat","nuclear","fervour"};
+  for (String ass : reqAssets) {
+      assets.put(ass,loadImage(resdir + ass + ".png"));
+      assets.put(ass+"_highlight",loadImage(resdir + ass + "_highlight.png"));
+  }
+  HUDs = new ArrayList<HUD>();
+  HUD mainHUD = new HUD(null,width/2,height - height /5/2,width*2/4,height/5);
+  
+  dispfood = new Food(0);
+  mainHUD.add(new InterfaceText(mainHUD,100,105,new Food(30),color(255,0,0)));
+  mainHUD.add(new InterfaceText(mainHUD,100,30,dispfood,0));
+  mainHUD.add(new Button(mainHUD,100,70,"meat",new Runnable(){public void run(){activeBushType = "bush";};}));
+  
+  dispwood = new Wood(0);
+  mainHUD.add(new InterfaceText(mainHUD,200,105,new Wood(50),color(255,0,0)));
+  mainHUD.add(new InterfaceText(mainHUD,200,30,dispwood,0));
+  mainHUD.add(new Button(mainHUD,200,70,"tree",new Runnable(){public void run(){activeBushType = "wood";};}));
+  
+  dispiron = new  Iron(0);
+  mainHUD.add(new InterfaceText(mainHUD,300,105,new Iron(90),color(255,0,0)));
+  mainHUD.add(new InterfaceText(mainHUD,300,30,dispiron,0));
+  mainHUD.add(new Button(mainHUD,300,70,"rock",new Runnable(){public void run(){activeBushType = "iron";};}));
+  
+  dispnuclear = new  Nuclear(0);
+  mainHUD.add(new InterfaceText(mainHUD,400,105,new Nuclear(500),color(255,0,0)));
+  mainHUD.add(new InterfaceText(mainHUD,400,30,dispnuclear,0));
+  mainHUD.add(new Button(mainHUD,400,70,"nuclear",new Runnable(){public void run(){activeBushType = "nuclear";};}));
+  
+  dispfervour = new  Fervour(0);
+  mainHUD.add(new InterfaceText(mainHUD,500,30,dispfervour,0));
+  mainHUD.add(new Button(mainHUD,500,70,"fervour",new Runnable(){public void run(){activeBushType = "";};}));
+  HUDs.add(mainHUD);
 }

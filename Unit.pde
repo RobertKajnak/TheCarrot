@@ -121,7 +121,6 @@ class Unit extends Entity {
             target = serlectNewUnderConstruction(civ.underConstruction);
           }
           else {
-            println("has a target");
             if (distance(target, this) < 20) {
               BuildingUnderConstruction building = findBuildingAtTarget(civ.underConstruction);
               if (building != null) {
@@ -246,7 +245,7 @@ class Unit extends Entity {
   void render() {
     renderImage();
   
-    if (isVisible(x, y, 20, 20)) {
+    if (isVisible(x, y, 20, 20) && debugView) {
       
       int nx = worldCoordToScreenCoord(x, cameraX);
       int ny = worldCoordToScreenCoord(y, cameraY);

@@ -20,7 +20,7 @@ class Stash extends Entity {
   void render() {
     renderImage();
      
-    if (isVisible(x, y, 20, 20)) {
+    if (isVisible(x, y, 20, 20) && debugView) {
       
       int nx = worldCoordToScreenCoord(x, cameraX);
       int ny = worldCoordToScreenCoord(y, cameraY);
