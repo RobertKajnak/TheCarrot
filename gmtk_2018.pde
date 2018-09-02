@@ -30,10 +30,15 @@ int R=80,G=230,B=80;
 
 PImage[] cursorImgs;
 
+/// --- Important assets
 Map<String,PImage> assets;
 World world;
 String activeBushType = "";
 
+/// --- Sounds
+Sounds SS;
+
+/// --- Bools
 boolean debugView = false;
 boolean isPaused = false;
 
@@ -69,6 +74,7 @@ void setup() {
   
   assets.put("help",loadImage(resdir + "help.png"));
   
+  SS = new Sounds(this);
 } 
 
 void loadCursorImages() {
@@ -243,9 +249,11 @@ void mouseReleased(){
 }
 
 void keyReleased() {
-  if (key == 'h' || key == 'H' || key == 'p' || key == 'P')
+  if (key == 'h' || key == 'H' || key == 'p' || key == 'P'){
     isPaused = !isPaused;
     showHelpScreen();
+  }
+    
 }
 
 Resource spendOnResource(Resource resource, int cost) {

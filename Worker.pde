@@ -47,6 +47,8 @@ class Worker extends Unit {
             Stash stash = getTargetStash(world.resources);
             Resource extracted = stash.extract(extractingAmount);
             inventory.add(extracted);
+            if (isVisible(x,y,100,100))
+                SS.Pickup();
           }
           
           if (inventory.nonEmpty()) {

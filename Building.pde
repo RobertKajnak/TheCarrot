@@ -13,15 +13,17 @@ class BuildingUnderConstruction extends Entity {
   }
   
   void build() {
+
     buffer += 0.1;
     if (buffer > 1) {
-      buffer = 0;
+      buffer = 0;    
       finishedPercent++;
       
       if (finishedPercent >= 50) 
         name = civ.constructionName2;
       if (finishedPercent >= 100)
         name = civ.buildingName;
+
     }
   }
   
@@ -40,9 +42,15 @@ class BuildingUnderConstruction extends Entity {
     
     fill(255);
     text(finishedPercent + "%", nx, ny - 100);
+    
+    if (isVisible(x, y, 50, 50)){
+      if (finishedPercent>1 && finishedPercent<100 && !SS.Construction.isPlaying()){
+            SS.ConstructionStart();
+  
+      }
+    }
   }
 }
-
 class Building extends Entity {
  
   Inventory inventory = new Inventory();

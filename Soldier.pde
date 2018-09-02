@@ -30,9 +30,13 @@ class Soldier extends Unit {
         
         if (distance(this, enemyTarget) < 10) {
           enemyTarget.damage();
+          if (isVisible(x,y,100,100)){
+            SS.battle();
+          }
           if (enemyTarget.hitPoints <= 0) {
             enemyTarget = null;
             state = "Idle";
+            SS.Death();
           }
         }
         
