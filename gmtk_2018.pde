@@ -184,16 +184,16 @@ void mouseReleased(){
      Resource resToAdd;
      switch (activeBushType){
        case "bush":
-         resToAdd = spendOnResource(new Food(5), 30);
+         resToAdd = spendOnResource(new Food(50), 30);
          break;
        case "wood":
-         resToAdd = spendOnResource(new Food(5), 50);
+         resToAdd = spendOnResource(new Wood(50), 50);
          break;
        case "iron":
-         resToAdd = spendOnResource(new Food(5), 90);
+         resToAdd = spendOnResource(new Iron(50), 90);
          break;
        case "nuclear":
-         resToAdd = spendOnResource(new Food(5), 500);
+         resToAdd = spendOnResource(new Nuclear(50), 500);
          break;
        default:
          resToAdd = null;

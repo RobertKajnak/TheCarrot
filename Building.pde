@@ -62,7 +62,7 @@ class Building extends Entity {
   }
   
   void spawnBuilding(Coord goodPlace) {
-    civ.add(new BuildingUnderConstruction(goodPlace.x, goodPlace.y, "Building"));
+    civ.add(new BuildingUnderConstruction(goodPlace.x, goodPlace.y, name));
   }
   
   Coord findPotentialPlace() {
