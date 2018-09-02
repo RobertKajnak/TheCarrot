@@ -6,7 +6,7 @@ class BuildingUnderConstruction extends Entity {
   Civilization civ;
   
   public BuildingUnderConstruction(int x, int y, Civilization civ) {
-    super("construction_0", x, y);
+    super(civ.constructionName1, x, y);
     this.civ = civ;
     
     hitPoints = 500;
@@ -19,9 +19,9 @@ class BuildingUnderConstruction extends Entity {
       finishedPercent++;
       
       if (finishedPercent >= 50) 
-        name = "construction_1";
+        name = civ.constructionName2;
       if (finishedPercent >= 100)
-        name = "building";
+        name = civ.buildingName;
     }
   }
   

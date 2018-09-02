@@ -23,9 +23,15 @@ class World {
         reqAssets.add("bush");
         reqAssets.add("wood");
         reqAssets.add("iron");
+        
         reqAssets.add("building");
         reqAssets.add("construction_0");
         reqAssets.add("construction_1");
+        
+        reqAssets.add("building_2");
+        reqAssets.add("construction_2_0");
+        reqAssets.add("construction_2_1");
+        
       
         for (String ass : reqAssets) {
           PImage assIm = loadImage(resdir + ass + ".png");
@@ -39,14 +45,14 @@ class World {
         
         
         // Initializations
-        Civilization moustache = new Civilization("Moustache", color(255, 0, 0));
+        Civilization moustache = new Civilization("Moustache", color(255, 0, 0), "building", "construction_0", "construction_1");
         civs.add(moustache);
         moustache.add(new Worker(width/2,height/2, this, moustache));
         moustache.add(new Worker(0,0, this, moustache));
         moustache.add(new BuildingUnderConstruction(200, 200, moustache));
         moustache.add(new Soldier(500, 500, this, moustache));
         
-        Civilization randors = new Civilization("Randors", color(0, 0, 255));
+        Civilization randors = new Civilization("Randors", color(0, 0, 255), "building_2", "construction_2_0", "construction_2_1");
         civs.add(randors);
         randors.add(new Worker(width, height, this, randors));
         randors.add(new BuildingUnderConstruction(width, height, randors));

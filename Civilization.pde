@@ -4,6 +4,9 @@ public class Civilization {
   
   String name;
   int colour;
+  String buildingName;
+  String constructionName1;
+  String constructionName2;
   
   List<Unit> units = new ArrayList<Unit>();
   List<Building> buildings = new ArrayList<Building>();
@@ -11,9 +14,12 @@ public class Civilization {
   Inventory inventory = new Inventory();
   Techtree tech = new Techtree();
 
-  public Civilization(String name, int colour) {
+  public Civilization(String name, int colour, String buildName, String constrName1, String constrName2) {
     this.name = name;
     this.colour = colour;
+    buildingName = buildName;
+    constructionName1 = constrName1;
+    constructionName2 = constrName2;
   }
   
   public void add(Unit unit){
