@@ -6,7 +6,7 @@ Random RNG;
 /// --- Camera values relative to the global map
 int cameraX,cameraY; //top left corner
 int cameraMinX, cameraMaxX, cameraMinY, cameraMaxY;
-int zoomLevel = 1, zoomLimit = 4;
+int zoomLevel = 1, zoomLimit = 2;
 double widthForZoomLevel,heightForZoomLevel;
 double cameraMoveSpeed = 10;
 int mapXMin, mapXMax, mapYMin,mapYMax;
@@ -50,7 +50,7 @@ void setup() {
   size(1280,720);
   
   mapXMin = -1500;
-  mapXMax = 1500;
+  mapXMax = 3000;
   mapYMin = -1500;
   mapYMax = 1500;
   
@@ -156,9 +156,10 @@ void keyPressed() {
     debugView = !debugView;
   }
   
-  if (key == 'h' || key == 'H' || key == 'p' || key == 'P')
+  if (key == 'h' || key == 'H' || key == 'p' || key == 'P') {
     isPaused = !isPaused;
     showHelpScreen();
+  }
 }
 
 void mouseMoved() {

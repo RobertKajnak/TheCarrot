@@ -63,16 +63,16 @@ class World {
         Civilization moustache = new Civilization("Moustache", color(255, 0, 0), "building", "construction_0", "construction_1", "peon", "soldier");
         civs.add(moustache);
         //moustache.add(new Worker(width/2,height/2, this, moustache));
-        int startX = randomBetweenBounds(mapXMin, mapXMax);
-        int startY = randomBetweenBounds(mapYMin, mapYMax);
+        int startX = randomBetweenBounds(mapXMin/2, mapXMax/2);
+        int startY = randomBetweenBounds(mapYMin/2, mapYMax/2);
         moustache.add(new Worker(startX,startY, this, moustache));
         moustache.add(new BuildingUnderConstruction(startX, startY, moustache));
         //moustache.add(new Soldier(500, 500, this, moustache));
         
         Civilization randors = new Civilization("Randors", color(0, 0, 255), "building_2", "construction_2_0", "construction_2_1", "peasant", "militant");
         civs.add(randors);
-        int startX2 = randomBetweenBounds(mapXMin, mapXMax);
-        int startY2 = randomBetweenBounds(mapYMin, mapYMax);
+        int startX2 = randomBetweenBounds(mapXMin/2, mapXMax/2);
+        int startY2 = randomBetweenBounds(mapYMin/2, mapYMax/2);
         randors.add(new Worker(startX2, startY2, this, randors));
         randors.add(new BuildingUnderConstruction(startX2, startY2, randors));
         //randors.add(new Soldier(700, 500, this, randors));

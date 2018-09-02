@@ -76,7 +76,7 @@ void buildHUD(){
   
   dispfood = new Food(0);
   mainHUD.add(new InterfaceText(mainHUD,100,105,new Food(30),color(255,0,0)));
-  mainHUD.add(new InterfaceText(mainHUD,100,30,dispfood,0));
+  //mainHUD.add(new InterfaceText(mainHUD,100,30,dispfood,0));
   mainHUD.add(new Button(mainHUD,100,70,"meat",new Runnable(){public void run(){activeBushType = "bush";};}));
   
   dispwood = new Wood(0);
@@ -90,12 +90,12 @@ void buildHUD(){
   
   dispiron = new  Iron(0);
   mainHUD.add(new InterfaceText(mainHUD,300,105,new Iron(90),color(255,0,0)));
-  mainHUD.add(new InterfaceText(mainHUD,300,30,dispiron,0));
+  //mainHUD.add(new InterfaceText(mainHUD,300,30,dispiron,0));
   mainHUD.add(new Button(mainHUD,300,70,"rock",new Runnable(){public void run(){activeBushType = "iron";};}));
   
   dispnuclear = new  Nuclear(0);
   mainHUD.add(new InterfaceText(mainHUD,400,105,new Nuclear(500),color(255,0,0)));
-  mainHUD.add(new InterfaceText(mainHUD,400,30,dispnuclear,0));
+  //mainHUD.add(new InterfaceText(mainHUD,400,30,dispnuclear,0));
   mainHUD.add(new Button(mainHUD,400,70,"nuclear",new Runnable(){public void run(){
     if (dispfervour.amount < 500) return; 
     SS.Upgrade();
@@ -109,7 +109,7 @@ void buildHUD(){
     dispfervour.amount -= 500;
 };}));
   
-  dispfervour = new  Fervour(500);
+  dispfervour = new  Fervour(0);
   mainHUD.add(new InterfaceText(mainHUD,500,30,dispfervour,0));
   mainHUD.add(new Button(mainHUD,500,70,"fervour",new Runnable(){public void run(){activeBushType = "";};}));
   HUDs.add(mainHUD);
