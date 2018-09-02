@@ -30,17 +30,16 @@ class BuildingUnderConstruction extends Entity {
   void render() {
     renderImage();
     
-    if (isVisible(x, y, 20, 20) && debugView) {
-      
-      int nx = worldCoordToScreenCoord(x, cameraX);
-      int ny = worldCoordToScreenCoord(y, cameraY);
-     
+    int nx = worldCoordToScreenCoord(x, cameraX);
+    int ny = worldCoordToScreenCoord(y, cameraY);
+    
+    if (isVisible(x, y, 20, 20) && debugView) {  
       fill(civ.colour);
       rect(nx, ny, 50, 50);
-    
-      fill(255);
-      text("Finished " + finishedPercent + "%", nx, ny);
     }
+    
+    fill(255);
+    text(finishedPercent + "%", nx, ny - 100);
   }
 }
 
@@ -110,16 +109,17 @@ class Building extends Entity {
   void render() {
     renderImage();
     
-    if (isVisible(x, y, 20, 20) && debugView) {
-      
-      int nx = worldCoordToScreenCoord(x, cameraX);
-      int ny = worldCoordToScreenCoord(y, cameraY);
-     
+    int nx = worldCoordToScreenCoord(x, cameraX);
+    int ny = worldCoordToScreenCoord(y, cameraY);
+    
+    if (isVisible(x, y, 20, 20) && debugView) {  
       fill(civ.colour);
       rect(nx, ny, 50, 50);
+    }
     
+    if (civ.name.equals("Moustache")) {
       fill(255);
-      text(inventory.toString(), nx, ny);
+      text(inventory.toString(), nx, ny - 100);
     }
   }
 }
