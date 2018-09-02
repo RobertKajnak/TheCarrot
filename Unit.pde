@@ -137,7 +137,7 @@ class Unit extends Entity {
         break;
         
       default:
-        println("UNRECOGNIZED STTE: " + state);
+        println("UNRECOGNIZED STATE: " + state);
         break;
     }
   }
