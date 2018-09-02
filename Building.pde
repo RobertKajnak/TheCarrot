@@ -8,6 +8,8 @@ class BuildingUnderConstruction extends Entity {
   public BuildingUnderConstruction(int x, int y, Civilization civ) {
     super("construction_0", x, y);
     this.civ = civ;
+    
+    hitPoints = 500;
   }
   
   void build() {

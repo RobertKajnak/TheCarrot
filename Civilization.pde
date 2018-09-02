@@ -36,6 +36,39 @@ public class Civilization {
        building.update();
      
      finalizeFinishedBuildings();
+     removeDeadUnits();
+     removeDeadBuildings();
+     removeDeadBUC();
+  }
+  
+  void removeDeadUnits() {
+    ArrayList<Unit> alive = new ArrayList<Unit>();
+    
+    for (Unit entity : units)
+      if (entity.hitPoints > 0)
+        alive.add(entity);
+        
+    units = alive;
+  }
+  
+  void removeDeadBuildings() {
+    ArrayList<Building> alive = new ArrayList<Building>();
+    
+    for (Building entity : buildings)
+      if (entity.hitPoints > 0)
+        alive.add(entity);
+        
+    buildings = alive;
+  }
+  
+  void removeDeadBUC() {
+    ArrayList<BuildingUnderConstruction> alive = new ArrayList<BuildingUnderConstruction>();
+    
+    for (BuildingUnderConstruction entity : underConstruction)
+      if (entity.hitPoints > 0)
+        alive.add(entity);
+        
+    underConstruction = alive;
   }
   
   void finalizeFinishedBuildings() {

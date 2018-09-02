@@ -46,6 +46,7 @@ class World {
         civs.add(randors);
         randors.add(new Worker(width, height, this, randors));
         randors.add(new BuildingUnderConstruction(width, height, randors));
+        randors.add(new Soldier(700, 500, this, randors));
         
         //resources.add(new Stash(500, 300, "bush", new Food(50)));
 
