@@ -28,9 +28,9 @@ World world;
 void setup() {
   size(1280,720);
   
-  mapXMin = 0;
+  mapXMin = -10000;
   mapXMax = 100000;
-  mapYMin = 0;
+  mapYMin = -10000;
   mapYMax = 100000;
   
   
@@ -183,7 +183,7 @@ void mouseWheel (MouseEvent event){
  if (event.getCount()>0){
    ///scroll up
      if (zoomLevel<zoomLimit) {
-       cameraX -= zoomLevel * widthForZoomLevel /2;
+       cameraX -= zoomLevel * widthForZoomLevel /2 ;
        cameraY -= zoomLevel * heightForZoomLevel /2;
        
        zoomLevel *= 2; 
@@ -194,12 +194,12 @@ void mouseWheel (MouseEvent event){
      if (zoomLevel>1){
        zoomLevel /= 2;
        
-       cameraX += zoomLevel* widthForZoomLevel /2;
-       cameraY += zoomLevel* heightForZoomLevel /2;
+       cameraX += zoomLevel* widthForZoomLevel /2 + zoomLevel * widthForZoomLevel*(mouseX-width/2)/width;
+       cameraY += zoomLevel* heightForZoomLevel /2 + zoomLevel * widthForZoomLevel*(mouseY-height/2)/height;
      }
    }
    //println(cameraMaxX);
-   println(zoomLevel * widthForZoomLevel);
+   //println(zoomLevel * widthForZoomLevel);
    //println(cameraX);
    //println(cameraX + zoomLevel* widthForZoomLevel/2);
 }
