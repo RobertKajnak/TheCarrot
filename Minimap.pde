@@ -42,7 +42,6 @@ public void render(){
     int scrY0 = mapy2mini(cameraMinY);
     int scrX1 = mapx2mini(cameraMaxX);
     int scrY1 = mapy2mini(cameraMaxY);
-    println(scrX0);
     rect(x+scrX0,y+scrY0,scrX1-scrX0,scrY1-scrY0);
     
     for (Stash resource : world.resources){

@@ -56,8 +56,17 @@ abstract class Unit extends Entity {
     framesShown ++;
     if (framesShown > frameSwitch){
         framesShown = 0;
-        if (x!=prevX || y!=prevY){
-          frameIndex = frameIndex == 1?0:1;
+        if (y!=prevY || x!=prevX){
+          if (x-prevX<0){
+            if (frameIndex/2==0)
+              frameIndex+=2;
+          }
+          else if (x-prevX>0){
+             if (frameIndex/2==1){
+               frameIndex-=2;
+             }
+          }
+          frameIndex = frameIndex %2==0? frameIndex+1:frameIndex-1;
         }
         else{
           frameIndex = 0; 
@@ -67,12 +76,20 @@ abstract class Unit extends Entity {
     prevX = x;
     prevY = y;
     
-     if (frameIndex ==0){
-        renderImage();
-      }
-      else{
-        renderImage("_walk");
-      }
+    switch (frameIndex){
+     case 1:
+       renderImage("_walk");
+     break;
+     case 2:
+       renderImage("_left");
+     break;
+     case 3:
+       renderImage("_walk_left");
+       break;
+     default:
+       renderImage();
+     break;
+    }
     
     int nx = worldCoordToScreenCoord(x, cameraX);
     int ny = worldCoordToScreenCoord(y, cameraY);

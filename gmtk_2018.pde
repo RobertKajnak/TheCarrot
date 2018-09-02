@@ -6,7 +6,7 @@ Random RNG;
 /// --- Camera values relative to the global map
 int cameraX,cameraY; //top left corner
 int cameraMinX, cameraMaxX, cameraMinY, cameraMaxY;
-int zoomLevel = 1, zoomLimit = 16;
+int zoomLevel = 1, zoomLimit = 4;
 double widthForZoomLevel,heightForZoomLevel;
 double cameraMoveSpeed = 10;
 int mapXMin, mapXMax, mapYMin,mapYMax;
