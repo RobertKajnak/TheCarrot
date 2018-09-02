@@ -3,7 +3,7 @@ import java.util.*;
 
 class Sounds{
   
- private SoundFile BGM, Construction, Upgrade,Pickup, Death;
+ private SoundFile BGM, Construction, Upgrade,Pickup, Death, Demolish;
  private List<SoundFile> Battles;
  private int battleCount = 5;
  //private Minim SE;
@@ -13,6 +13,7 @@ class Sounds{
      Upgrade = new SoundFile(sc,resdir + "weapon.mp3");
      Pickup = new SoundFile(sc, resdir + "pickup.mp3");
      Death = new SoundFile(sc, resdir + "death.mp3");
+     Demolish = new SoundFile(sc, resdir + "demolish.mp3");
     
      Battles = new ArrayList<SoundFile>();
      for (int i=1;i<=battleCount;i++){
@@ -53,6 +54,11 @@ class Sounds{
  public void Death(){
    if (!Death.isPlaying())  
        Death.play();
+ }
+ public void Demolish(){
+     if (!Demolish.isPlaying()){
+       Demolish.play();
+     }
  }
   
 }

@@ -34,9 +34,14 @@ class Soldier extends Unit {
             SS.battle();
           }
           if (enemyTarget.hitPoints <= 0) {
+            if (enemyTarget.name.contains("uilding")){
+              SS.Demolish();
+            }
+            else{
+              SS.Death();
+            }
             enemyTarget = null;
             state = "Idle";
-            SS.Death();
           }
         }
         
