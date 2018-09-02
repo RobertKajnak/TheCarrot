@@ -80,13 +80,18 @@ void setup() {
   buildHUD();
   
   SS = new Sounds(this);
-} 
+  
+  isPaused = true;
+  showHelpScreen();
+  } 
 
-void loadCursorImages() {
+  void loadCursorImages() {
   cursorImgs =new PImage[9];
   for (int i=0;i<9;i++){
    cursorImgs[i] = loadImage(resdir + "arrowHead"+i+".png"); 
   }
+  
+  
 }
 
 
@@ -211,10 +216,6 @@ void mouseWheel (MouseEvent event){
        cameraY += zoomLevel* heightForZoomLevel /2 + zoomLevel * widthForZoomLevel*(mouseY-height/2)/height;
      }
    }
-   //println(cameraMaxX);
-   //println(zoomLevel * widthForZoomLevel);
-   //println(cameraX);
-   //println(cameraX + zoomLevel* widthForZoomLevel/2);
 }
 
 void mouseReleased(){
